@@ -19,7 +19,11 @@ const mainnet = {
 
 // Localnet configuration for the playground.
 // This allows you to connect to a local node.
-// You need to run the local node of subsocial: https://github.com/dappforce/subsocial-node
+// You need to run the local nodes of subsocial, ipfs & offchain.
+// Links to the repository: 
+// Subsocial Node: https://github.com/dappforce/subsocial-node
+// Offchain Node: https://github.com/dappforce/subsocial-offchain
+// IPFS Node: https://ipfs.io/#install
 const localnet = {
   substrateNodeUrl: 'http://127.0.0.1:9944',
   offchainUrl: 'http://127.0.0.1:3001',
