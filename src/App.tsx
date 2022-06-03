@@ -1,23 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react'
 import './App.css';
+import runPlayground from './playground';
 
 function App() {
+
+  const [response, setResponse] = useState<any>('')
+
+  console.log(process.env)
+
+  const onClickHandler = async () => {
+    console.log('hi')
+    const res = await runPlayground()
+    console.log(res)
+    setResponse(res)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h2>Subsocial Playground</h2>
+        <p>Test your code for subsocial</p>
+        <button onClick={() => onClickHandler()}>Run</button>
+        <hr></hr>
+        <div>
+          {response}
+        </div>
       </header>
     </div>
   );
