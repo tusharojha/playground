@@ -2,6 +2,8 @@
 
 Play with Subsocial SDK in our playground.
 
+Try now: link
+
 ## How to use it?
 
 - Open the project in [GitPod](https://tusharojha.com)

@@ -1,30 +1,36 @@
 import React, { useState } from 'react'
+import ReactJson from 'react-json-view';
 import './App.css';
 import runPlayground from './playground';
 
+import { Button, Row, Col } from 'antd'
+
 function App() {
 
-  const [response, setResponse] = useState<any>('')
-
-  console.log(process.env)
+  const [response, setResponse] = useState<any>({})
+  const [loading, setLoading] = useState<boolean>(false)
 
   const onClickHandler = async () => {
-    console.log('hi')
+    setLoading(true)
     const res = await runPlayground()
     console.log(res)
     setResponse(res)
+    setLoading(false)
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <h2>Subsocial Playground</h2>
-        <p>Test your code for subsocial</p>
-        <button onClick={() => onClickHandler()}>Run</button>
-        <hr></hr>
-        <div>
-          {response}
-        </div>
+        <Row>
+          <Col span={10}>
+            <p>Test your code for subsocial</p>
+            <Button type='ghost' disabled={loading} onClick={() => onClickHandler()}>{loading ? 'Loading...' : 'Run'}</Button>
+          </Col>
+          <Col span={10}>
+            <ReactJson style={{ fontSize: 20 }} collapsed={false} src={response} />
+          </Col>
+        </Row>
       </header>
     </div>
   );
