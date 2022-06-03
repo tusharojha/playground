@@ -16,9 +16,6 @@ const playground = async (configDetails: any) => {
   let response: any
 
   // Write your code here.
-  const spaceId = 1
-  const space = await flatApi.findSpace({id: spaceId as any})
-  response = space
 
   // The response object returned will be printed on the screen.
   return response;

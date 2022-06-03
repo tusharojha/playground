@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactJson from 'react-json-view';
 import './App.css';
 import runPlayground from './playground';
-
+import "antd/dist/antd.css";
 import { Button, Row, Col } from 'antd'
 
 function App() {
@@ -22,12 +22,12 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h2>Subsocial Playground</h2>
-        <Row>
-          <Col span={10}>
+        <Row className='items'>
+          <Col className='itemblock' span={10}>
             <p>Test your code for subsocial</p>
-            <Button type='ghost' disabled={loading} onClick={() => onClickHandler()}>{loading ? 'Loading...' : 'Run'}</Button>
+            <Button size='large' type='primary' disabled={loading} onClick={() => onClickHandler()}>{loading ? 'Loading...' : 'Run'}</Button>
           </Col>
-          <Col span={10}>
+          <Col className='itemblock' span={10}>
             <ReactJson style={{ fontSize: 20 }} collapsed={false} src={response} />
           </Col>
         </Row>

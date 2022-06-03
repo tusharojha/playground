@@ -2,7 +2,7 @@
 
 Play with Subsocial SDK in our playground.
 
-Try now: link
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tusharojha/playground)
 
 ## How to use it?
 
