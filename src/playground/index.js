@@ -6,17 +6,19 @@ import config from "./config";
 // You can choose between: testnet, mainnet, localnet
 const configNet = 'mainnet'
 
-const playground = async (configDetails: any) => {
+const playground = async (configDetails) => {
   // See API docs for more information: https://docs.subsocial.network/js-docs/js-sdk/index.html
   // Tryout from quick reference guide: https://docs.subsocial.network/docs/sdk/quick-reference
 
   const flatApi = await newFlatSubsocialApi(configDetails)
 
   // Store your API function result in the response object 
-  let response: any
+  let response
 
   // Write your code here.
-
+  const spaceId = 1
+  const space = await flatApi.findSpace({id: spaceId})
+  response = space
   // The response object returned will be printed on the screen.
   return response;
 }
