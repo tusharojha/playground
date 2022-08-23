@@ -6,24 +6,39 @@ import config from "./config";
 // You can choose between: testnet, mainnet, localnet
 const configNet = 'mainnet'
 
-const playground = async (configDetails: any) => {
+var flatApi
+
+const playground = async (configDetails: any, codeSnippet: string) => {
   // See API docs for more information: https://docs.subsocial.network/js-docs/js-sdk/index.html
   // Tryout from quick reference guide: https://docs.subsocial.network/docs/sdk/quick-reference
-
-  const flatApi = await newFlatSubsocialApi(configDetails)
+  flatApi = await newFlatSubsocialApi({
+    ...configDetails,
+    useServer: {
+      httpRequestMethod: 'get'
+    }
+  })
+  const data = `
+  async function runScript() {
+    ${codeSnippet}
+  }
+  return runScript()
+  `
 
   // Store your API function result in the response object 
   let response: any
 
   // Write your code here.
+  const f = new Function("flatApi", data)
+  response = await f(flatApi)
+  console.log('respnose', response);
 
   // The response object returned will be printed on the screen.
   return response;
 }
 
-const runPlayground = async () => {
+const runPlayground = async (codeSnippet: string) => {
   const configDetails = config(configNet);
-  return await playground(configDetails)
+  return await playground(configDetails, codeSnippet)
 }
 
 export default runPlayground

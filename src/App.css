@@ -22,7 +22,6 @@ button {
 .itemblock {
   width: 100%;
   text-align: left;
-  overflow-x: scroll;
 }
 
 .header-section {
@@ -43,4 +42,12 @@ button {
   margin-bottom: 14px;
   font-weight: 600;
   margin-left: 10px;
+}
+
+.run-btn {
+  margin-left: 1rem;
+}
+
+.sider, .codeblock {
+  position: fixed;
 }

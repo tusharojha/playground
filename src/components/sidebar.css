@@ -4,7 +4,7 @@
   flex: 1;
   padding-top: 0.5rem;
   height: 85vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-right: 10px;
 }
 
@@ -31,4 +31,8 @@
 
 .sidebar-section {
   margin-bottom: 1rem;
+}
+
+.output {
+  margin-left: 1rem;
 }

@@ -12,6 +12,19 @@
         "  const ownerAccountId = '<owner_account_public_key>'\n\n  // Fetching ids of all the spaces by owner.\n  const spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n  // Fetching space data from all ids.\n  const spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\n  return space;",
         "  const handleName = 'subsocial'\n\n  // Fetching spaceId by Handle.\n  const spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n  // Fetching space by spaceId.\n  const space = await flatApi.findSpace({id: spaceId})\n  return space;"
       ]
+    },
+    {
+      "key": "Post",
+      "variants": [
+        "By Id",
+        "By Owner",
+        "By Handle"
+      ],
+      "snippets": [
+        "  const postId = 1\n  const post = await flatApi.findPost({id: postId})\n  return post;",
+        "  const ownerAccountId = '<owner_account_public_key>'\n\n  // Fetching ids of all the spaces by owner.\n  const spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n  // Fetching space data from all ids.\n  const spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\n  return space;",
+        "  const handleName = 'subsocial'\n\n  // Fetching spaceId by Handle.\n  const spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n  // Fetching space by spaceId.\n  const space = await flatApi.findSpace({id: spaceId})\n  return space;"
+      ]
     }
   ],
   "Writing Data": [
@@ -23,7 +36,7 @@
         "By Handle"
       ],
       "snippets": [
-        "  const spaceId = 1\n  const space = await flatApi.findSpace({id: spaceId})\n  return space;",
+        "  const spaceId = 1\n  const space = await flatApi.findSpace({id: spaceId})\n  response = space;",
         "  const ownerAccountId = '<owner_account_public_key>'\n\n  // Fetching ids of all the spaces by owner.\n  const spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n  // Fetching space data from all ids.\n  const spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\n  return space;",
         "  const handleName = 'subsocial'\n\n  // Fetching spaceId by Handle.\n  const spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n  // Fetching space by spaceId.\n  const space = await flatApi.findSpace({id: spaceId})\n  return space;"
       ]
