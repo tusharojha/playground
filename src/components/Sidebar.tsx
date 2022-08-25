@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import './sidebar.css';
 
@@ -24,7 +25,7 @@ const Sidebar = ({ updateSnippet, updateKey }: { updateSnippet: (resp: string) =
     <div className='side-container'>
       {dataKeys.map((key) => {
         return <div key={key} className='sidebar-section'>
-          <h6>{key}</h6>
+          <Typography variant="h6" component="h1">{key}</Typography>
           {((data as any)[key]).map((item: any) => {
             return <Item key={item.key} title={item.key} onTap={() => {
               setSelectedKey(key + item.key)
