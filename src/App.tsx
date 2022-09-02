@@ -1,27 +1,63 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import runPlayground from './playground'
-import { Button, Divider, Drawer, Grid, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, Typography, useTheme } from '@mui/material'
+import { Button, Divider, Drawer, Grid, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, Tab, Tabs, Typography, useTheme } from '@mui/material'
 import Sidebar from './components/Sidebar'
 import AceEditor from "react-ace"
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/MenuOutlined';
 import "ace-builds/src-noconflict/mode-typescript"
 import "ace-builds/src-noconflict/theme-monokai"
 import { Resizable } from 're-resizable'
 import ReactJson from 'react-json-view'
+import data from './data.json';
+
+const dataKeys = Object.keys(data) ?? [];
+const defaultCodeWidth = 60;
 
 const drawerWidth = 250;
 
-function App() {
+const CodeEditor = ({ snippet, setSnippet }: { snippet: string, setSnippet: (k: string) => void }) => {
+  const [snip, setSnip] = useState('')
 
+  useEffect(() => {
+    setSnip(snippet)
+  }, [])
+
+  return <AceEditor
+    style={
+      {
+        width: '100%',
+        marginTop: 10
+      }
+    }
+    showGutter={false}
+    value={snip}
+    onChange={(v) => {
+      // setSnippet(v)
+      setSnip(v)
+    }}
+    mode="javascript"
+    theme="monokai"
+    fontSize={16}
+    placeholder='Type your code here...'
+    name="UNIQUE_ID_OF_DIV"
+    highlightActiveLine
+    editorProps={{ $blockScrolling: true }}
+  />
+}
+
+function App() {
   const [response, setResponse] = useState<any>({})
   const [loading, setLoading] = useState<boolean>(false)
   const [snippet, setSnippet] = useState('')
-  const [key, setKey] = useState('')
-  const [subKey, setSubKey] = useState('')
-  const theme = useTheme();
+  const [snip, setSnip] = useState('')
+  const [selectedTab, setSelectedTab] = useState(0)
+  const [sideBarItem, setSideBarItem] = useState({
+    index: 0,
+    globalKey: dataKeys[0],
+    ...(data as any)[dataKeys[0]][0]
+  })
   const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
@@ -31,6 +67,13 @@ function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const updateKey = (k: any) => {
+    console.log(k)
+    setSelectedTab(0)
+    setSideBarItem(k)
+    setSnippet(k.snippets[selectedTab])
+  }
 
   const Main = styled('main')(
     ({ theme }) => ({
@@ -51,14 +94,9 @@ function App() {
     }),
   );
 
-
-  // useEffect(() => {
-  //   setKey(Object.keys(data).at(0) ?? '')
-  //   setKey((data as any)[Object.keys(data).at(0) ?? ''].variants[0])
-  // }, [])
-
   const onClickHandler = async () => {
     setLoading(true)
+    console.log(snippet)
     const res = await runPlayground(snippet)
     setResponse(res)
     setLoading(false)
@@ -67,7 +105,7 @@ function App() {
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    marginTop: 80,
+    marginTop: 95,
     justifyContent: 'flex-end',
     borderRight: 0,
     padding: theme.spacing(0, 1),
@@ -76,51 +114,55 @@ function App() {
   const Logo = () => {
     return <div className='header-container'>
       <div className='header-section'>
-
-        {!open ? <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start">
-          <MenuIcon />
-        </IconButton> : <div style={{ width: 28 }}></div>}
-        <img className='logo' src="./playground.png" />
+        <img className='logo' src={require("./playground.png")} />
         <div className='run-btn'><Button className='run-btn-widget' variant="contained" size='large' disabled={loading} sx={{ borderRadius: 28 }} onClick={() => onClickHandler()}>{loading ? 'Loading...' : 'Run'}</Button></div>
       </div>
     </div>
   }
 
-  const Body = (() => {
+  const Body = () => {
     return <Main>
+      {!open ? <div className='menu-btn'>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start">
+          <MenuIcon />
+        </IconButton>
+      </div> : <></>}
       <Resizable
         maxWidth="100%"
-        minWidth="40%" defaultSize={{ width: '60%', height: '100%' }}>
-        <span className='title'>Fetching a space:</span>
-        <AceEditor
-          style={{
-            width: '100%',
-            marginTop: 10
+        minWidth="40%" defaultSize={{ width: `${defaultCodeWidth}%`, height: '100%' }}>
+        <Tabs
+          onChange={(_, newValue) => {
+            const newIndex = sideBarItem.variants.indexOf(newValue)
+            setSelectedTab(newIndex)
+            setSnippet(sideBarItem.snippets[newIndex])
           }}
-          showGutter={false}
-          value={snippet}
-          onChange={(v) => setSnippet(v)}
-          mode="javascript"
-          theme="monokai"
-          fontSize={16}
-          placeholder='Type your code here...'
-          name="UNIQUE_ID_OF_DIV"
-          highlightActiveLine
-          editorProps={{ $blockScrolling: true }}
-          setOptions={{
-            enableBasicAutocompletion: true,
-            showLineNumbers: true,
-            tabSize: 2,
-          }}
-        />
+          value={sideBarItem.variants[selectedTab]}
+          textColor="primary"
+          indicatorColor="primary"
+          aria-label="secondary tabs example"
+        >
+          {sideBarItem.variants.map((item: string) => {
+            return <Tab label={item} value={item} key={item} />
+          })}
+        </Tabs>
+        <div className='displayArea'>
+          <CodeEditor setSnippet={setSnip} snippet={snippet} />
+          <div className='resizer'>
+            <span className="dot"></span>
+            <span className="dot"></span>
+            <span className="dot"></span>
+          </div>
+        </div>
       </Resizable>
-      <ReactJson style={{ fontSize: 20 }} collapsed={false} src={response} />
+      <div className='output'>
+        <ReactJson style={{ fontSize: 16 }} collapsed={false} src={response} />
+      </div>
     </Main>
-  })
+  }
 
   return (
     <div className="App">
@@ -144,7 +186,7 @@ function App() {
           </IconButton>
         </DrawerHeader>
         <div className='sider'>
-          <Sidebar updateKey={(k) => setKey(k)} updateSnippet={(snip: string) => setSnippet(snip)} />
+          <Sidebar updateSidebarObject={updateKey} />
         </div>
 
       </Drawer>

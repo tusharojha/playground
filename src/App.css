@@ -51,12 +51,12 @@ button {
 
 .title {
   font-size: 1.5rem;
-  padding-bottom: 10px;
 }
 
 .run-btn {
   margin-left: 1rem;
 }
+
 .run-btn-widget {
   background-color: violet;
 }
@@ -68,7 +68,46 @@ button {
 .output {
   overflow-x: auto;
   max-height: 85vh;
+  margin-top: 15px;
 }
+
 .codepart {
   width: 50%;
+}
+
+.menu-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 25px;
+  margin-top: 5px;
+}
+
+.displayArea {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.resizer {
+  width: 10px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.resizer{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  margin: 1px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
 }
