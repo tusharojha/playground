@@ -11,6 +11,7 @@ import "ace-builds/src-noconflict/mode-typescript"
 import "ace-builds/src-noconflict/theme-monokai"
 import { Resizable } from 're-resizable'
 import ReactJson from 'react-json-view'
+import Header from './components/Header/Header'
 
 const drawerWidth = 250;
 
@@ -32,31 +33,6 @@ function App() {
     setOpen(false);
   };
 
-  const Main = styled('main')(
-    ({ theme }) => ({
-      display: 'flex',
-      flexGrow: 1,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: 5,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: `${drawerWidth}px`,
-      }),
-    }),
-  );
-
-
-  // useEffect(() => {
-  //   setKey(Object.keys(data).at(0) ?? '')
-  //   setKey((data as any)[Object.keys(data).at(0) ?? ''].variants[0])
-  // }, [])
-
   const onClickHandler = async () => {
     setLoading(true)
     const res = await runPlayground(snippet)
@@ -73,25 +49,9 @@ function App() {
     padding: theme.spacing(0, 1),
   }));
 
-  const Logo = () => {
-    return <div className='header-container'>
-      <div className='header-section'>
-
-        {!open ? <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start">
-          <MenuIcon />
-        </IconButton> : <div style={{ width: 28 }}></div>}
-        <img className='logo' src="./playground.png" />
-        <div className='run-btn'><Button className='run-btn-widget' variant="contained" size='large' disabled={loading} sx={{ borderRadius: 28 }} onClick={() => onClickHandler()}>{loading ? 'Loading...' : 'Run'}</Button></div>
-      </div>
-    </div>
-  }
 
   const Body = (() => {
-    return <Main>
+    return <div>
       <Resizable
         maxWidth="100%"
         minWidth="40%" defaultSize={{ width: '60%', height: '100%' }}>
@@ -119,12 +79,12 @@ function App() {
         />
       </Resizable>
       <ReactJson style={{ fontSize: 20 }} collapsed={false} src={response} />
-    </Main>
+    </div>
   })
 
   return (
     <div className="App">
-      <Logo />
+      <Header toggleDrawer={handleDrawerOpen} />
       <Drawer
         sx={{
           width: drawerWidth,
