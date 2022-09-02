@@ -61,13 +61,9 @@ function App() {
   })
   const [open, setOpen] = useState(true);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const toggleDrawer = () => {
+    setOpen(!open)
+  }
 
   const updateKey = (k: any) => {
     console.log(k)
@@ -112,26 +108,8 @@ function App() {
     padding: theme.spacing(0, 1),
   }));
 
-  const Logo = () => {
-    return <div className='header-container'>
-      <div className='header-section'>
-        <img className='logo' src={require("./playground.png")} />
-        <div className='run-btn'><Button className='run-btn-widget' variant="contained" size='large' disabled={loading} sx={{ borderRadius: 28 }} onClick={() => onClickHandler()}>{loading ? 'Loading...' : 'Run'}</Button></div>
-      </div>
-    </div>
-  }
-
   const Body = () => {
     return <Main>
-      {!open ? <div className='menu-btn'>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start">
-          <MenuIcon />
-        </IconButton>
-      </div> : <></>}
       <Resizable
         maxWidth="100%"
         minWidth="40%" defaultSize={{ width: `${defaultCodeWidth}%`, height: '100%' }}>
@@ -167,7 +145,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header toggleDrawer={handleDrawerOpen} />
+      <Header toggleDrawer={toggleDrawer} />
       <Drawer
         sx={{
           width: drawerWidth,
@@ -182,14 +160,13 @@ function App() {
         open={open}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
           </IconButton>
         </DrawerHeader>
         <div className='sider'>
           <Sidebar updateSidebarObject={updateKey} />
         </div>
-
       </Drawer>
       <Body />
     </div >
