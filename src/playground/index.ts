@@ -4,7 +4,7 @@ import config from "./config";
 
 // Choose the environment you want to run the playground in.
 // You can choose between: testnet, mainnet, localnet
-const configNet = 'mainnet'
+const configNet = 'testnet'
 
 var flatApi
 
