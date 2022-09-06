@@ -7198,6 +7198,16 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
+json-beautify@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/json-beautify/-/json-beautify-1.1.1.tgz#8a1ed511ad5d52ca63ed29f7c61896c6a6ebbb9f"
+  integrity sha512-17j+Hk2lado0xqKtUcyAjK0AtoHnPSIgktWRsEXgdFQFG9UnaGw6CHa0J7xsvulxRpFl6CrkDFHght1p5ZJc4A==
+
+json-formatter-js@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/json-formatter-js/-/json-formatter-js-2.3.4.tgz#0b49b6facd0d54cb220eb65988157c0977a85c6f"
+  integrity sha512-gmAzYRtPRmYzeAT4T7+t3NhTF89JOAIioCVDddl9YDb3ls3kWcskirafw/MZGJaRhEU6fRimGJHl7CC7gaAI2Q==
+
 json-parse-even-better-errors@^2.3.0, json-parse-even-better-errors@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz#7c47805a94319928e05777405dc12e1f7a4ee02d"
@@ -8000,6 +8010,11 @@ node-releases@^2.0.3:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.5.tgz#280ed5bc3eba0d96ce44897d8aee478bfb3d9666"
   integrity sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==
+
+normalize-json-api-response@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/normalize-json-api-response/-/normalize-json-api-response-1.1.2.tgz#7af8dc06e33a9a7ab9f60508565b4c571ab2492f"
+  integrity sha512-SHMzCYCaxtBz8KJt1QcNXhdNXet+sAsV5KbIXMIvbpIjiU+w257xpu7eIMPArDsVCDs82Hnvgbn68h6M+uJZzg==
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
@@ -9215,6 +9230,11 @@ react-is@^18.2.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-json-formatter@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/react-json-formatter/-/react-json-formatter-0.3.2.tgz#f2374a80442f6d977eb1bc3a011194ffaff471f5"
+  integrity sha512-RjYM+hFcgm4x3Opt+fZCH3LktF6VfcQB/CtJX/SGd2Hko6RvL4dJw/BW17gRg7DLAHM7aKMt/ms/MroARalxoQ==
+
 react-json-view@^1.21.3:
   version "1.21.3"
   resolved "https://registry.yarnpkg.com/react-json-view/-/react-json-view-1.21.3.tgz#f184209ee8f1bf374fb0c41b0813cff54549c475"
@@ -9224,6 +9244,11 @@ react-json-view@^1.21.3:
     react-base16-styling "^0.6.0"
     react-lifecycles-compat "^3.0.4"
     react-textarea-autosize "^8.3.2"
+
+react-json-viewer@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-json-viewer/-/react-json-viewer-3.0.1.tgz#71f10c86b663446cef8effec4257276258b44b9a"
+  integrity sha512-3cOhAiQs29aEO2AvMAZZK0Gowf8zgsdOJP4by3ay70fAmKNvl7Eq4L6+ZQiTjtzePlZfg9X5MdBEgVLsWZuw1w==
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"

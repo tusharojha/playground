@@ -1,6 +1,7 @@
 body {
   background-color: #000;
 }
+
 .App {
   min-height: 100vh;
   display: flex;
@@ -69,9 +70,20 @@ button {
 }
 
 .output {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
   overflow-x: auto;
   max-height: 85vh;
-  margin-top: 15px;
+  margin-top: 20px;
+  flex: 1;
+}
+
+.output-box {
+  display: flex;
+  flex: 1;
+  background-color: #1E1E1E;
+  padding: 10px;
 }
 
 .codepart {
@@ -89,7 +101,10 @@ button {
 .displayArea {
   display: flex;
   flex: 1;
-  flex-direction: row;
+  flex-direction: column;
+  margin: 10px;
+  margin-top: 15px;
+  height: 100%;
 }
 
 .resizer {
@@ -100,10 +115,28 @@ button {
   align-items: center;
 }
 
-.resizer{
+.resizer {
   display: flex;
   flex: 1;
   flex-direction: column;
+  width: 20px;
+}
+
+.codeWindow {
+  height: 85vh;
+  display: inline-flex;
+  width: 100%;
+}
+.codeWindow .displayArea {
+  flex-grow: 1;
+  flex: 1;
+}
+
+.resize-dots {
+  width: 0px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .dot {
