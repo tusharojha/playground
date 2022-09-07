@@ -1,13 +1,9 @@
 import { Box, Typography } from "@mui/material"
-import ReactJson from "react-json-view"
 
 import JsonFormatter from 'react-json-formatter'
+import { useAppSelector } from "../../redux/hooks"
 
-type OutputProps = {
-  response: any
-}
-
-const OutputWindow = (props: OutputProps) => {
+const OutputWindow = () => {
   const jsonStyle = {
     propertyStyle: { color: '#66D9EF' },
     stringStyle: { color: '#F92672' },
@@ -22,12 +18,15 @@ const OutputWindow = (props: OutputProps) => {
     tabSpaceStyle: { color: '#fff' },
     trueStyle: { color: '#fff', fontWeight: 'bold' }
   }
+
+  const response = useAppSelector((state) => state.code.result)
+
   return <div className='output'>
     <Typography variant="caption" display="block" gutterBottom>
       Result
     </Typography>
     <Box className='output-box'>
-      {Object.keys(props.response).length === 0 ? <Typography variant="caption">{'{}'}</Typography> : <JsonFormatter json={JSON.stringify(props.response)} tabWith={4} jsonStyle={jsonStyle} />}
+      {Object.keys(response).length === 0 ? <Typography variant="caption">{'{}'}</Typography> : <JsonFormatter json={JSON.stringify(response)} tabWith={4} jsonStyle={jsonStyle} />}
     </Box>
   </div>
 }

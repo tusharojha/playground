@@ -6,13 +6,13 @@ import "ace-builds/src-noconflict/mode-typescript"
 import "ace-builds/src-noconflict/theme-monokai"
 import { Button, Typography } from "@mui/material"
 import runPlayground from "../../playground"
+import { useAppDispatch, useAppSelector } from "../../redux/hooks"
+import { setResponse, setSnippet } from "../../redux/slice"
 
-const CodeEditor = ({ snippet, setSnippet }: { snippet: string, setSnippet: (k: string) => void }) => {
-  const [snip, setSnip] = useState('')
+const CodeEditor = ({ }) => {
 
-  useEffect(() => {
-    setSnip(snippet)
-  }, [])
+  const snippet = useAppSelector((state) => state.code.snippet)
+  const dispatch = useAppDispatch()
 
   return <AceEditor
     style={
@@ -24,10 +24,9 @@ const CodeEditor = ({ snippet, setSnippet }: { snippet: string, setSnippet: (k: 
       }
     }
     showGutter={false}
-    value={snip}
+    value={snippet}
     onChange={(v) => {
-      // setSnippet(v)
-      setSnip(v)
+      dispatch(setSnippet(v))
     }}
     mode="javascript"
     theme="monokai"
@@ -40,16 +39,16 @@ const CodeEditor = ({ snippet, setSnippet }: { snippet: string, setSnippet: (k: 
 }
 
 
-const CodeWindow = ({ code, updateResponse }: { code: string, updateResponse: (k: string) => void }) => {
-
-  const [snippet, setSnip] = useState(code)
+const CodeWindow = () => {
   const [loading, setLoading] = useState(false)
+
+  const snippet = useAppSelector((state) => state.code.snippet)
+  const dispatch = useAppDispatch()
 
   const runCode = async (code: string) => {
     setLoading(true)
-    console.log(snippet)
     const res = await runPlayground(code)
-    updateResponse(res)
+    dispatch(setResponse(res))
     setLoading(false)
   }
 
@@ -62,7 +61,7 @@ const CodeWindow = ({ code, updateResponse }: { code: string, updateResponse: (k
         <PlayArrow />Run
       </Button>
     </div>
-    <CodeEditor setSnippet={setSnip} snippet={snippet} />
+    <CodeEditor />
   </div>
 }
 

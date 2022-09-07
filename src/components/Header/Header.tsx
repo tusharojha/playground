@@ -1,6 +1,7 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material"
 
 import MenuIcon from '@mui/icons-material/MenuOutlined';
+import { useAppSelector } from "../../redux/hooks";
 
 type HeaderProps = {
   toggleDrawer: () => void
@@ -8,6 +9,8 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const { toggleDrawer } = props
+
+  const selectedItem = useAppSelector((state) => state.code.selectedItem)
 
   return <AppBar color="secondary" position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
     <Toolbar>
@@ -23,7 +26,7 @@ const Header = (props: HeaderProps) => {
       </IconButton>
       <img className='logo' src={`${process.env.PUBLIC_URL}/playground.svg`} />
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        Reading Data: Space by ID
+        {`${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}`}
       </Typography>
       <Button variant="contained" color="info">Learn More</Button>
     </Toolbar>
