@@ -15,6 +15,7 @@ interface CounterState {
   snippet: string;
   result: any;
   selectedItem: SelectedItemType;
+  outputWindowHeight?: number;
 }
 
 // Define the initial state using that type
@@ -27,7 +28,7 @@ const initialState: CounterState = {
     key: '',
     variants: [],
     snippets: []
-  }
+  },
 }
 
 export const counterSlice = createSlice({
@@ -42,11 +43,14 @@ export const counterSlice = createSlice({
     },
     setSelectedItem: (state, action: PayloadAction<SelectedItemType>) => {
       state.selectedItem = action.payload
+    },
+    setOutputWindowHeight: (state, action: PayloadAction<number>) => {
+      state.outputWindowHeight = action.payload
     }
   },
 })
 
-export const { setResponse, setSnippet, setSelectedItem } = counterSlice.actions
+export const { setResponse, setSnippet, setSelectedItem, setOutputWindowHeight } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectSnippet = (state: RootState) => state.code.snippet

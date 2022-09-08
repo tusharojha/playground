@@ -1,18 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
-import runPlayground from './playground'
-import { Button, Divider, Drawer, Grid, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, Tab, Tabs, Typography, useTheme } from '@mui/material'
+import { Drawer, styled } from '@mui/material'
 import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header/Header'
 import Body from './components/Body/Body'
-import { useAppDispatch } from './redux/hooks'
-import { setSnippet } from './redux/slice'
-
-const drawerWidth = 256;
+import { drawerWidth } from './constants'
 
 function App() {
-  const [open, setOpen] = useState(true);
-  const dispatch = useAppDispatch()
+  const [open, setOpen] = useState(true)
 
   const toggleDrawer = () => {
     setOpen(!open)

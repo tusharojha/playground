@@ -1,32 +1,29 @@
 import { Box, Typography } from "@mui/material"
 
-import JsonFormatter from 'react-json-formatter'
-import { useAppSelector } from "../../redux/hooks"
+import ReactJson from "react-json-view"
+import { useAppDispatch, useAppSelector } from "../../redux/hooks"
+import { useEffect, useRef } from "react"
+import { setOutputWindowHeight } from "../../redux/slice"
 
 const OutputWindow = () => {
-  const jsonStyle = {
-    propertyStyle: { color: '#66D9EF' },
-    stringStyle: { color: '#F92672' },
-    numberStyle: { color: '#AE81FF' },
-    booleanStyle: { color: '#fff', fontWeight: 'bold' },
-    braceStyle: { color: '#fff' },
-    bracketStyle: { color: '#fff', fontWeight: 'bold' },
-    commaStyle: { color: '#fff' },
-    falseStyle: { color: '#fff' },
-    nullStyle: { color: '#E89B25', fontWeight: 'bold' },
-    style: { color: '#fff' },
-    tabSpaceStyle: { color: '#fff' },
-    trueStyle: { color: '#fff', fontWeight: 'bold' }
-  }
-
+  const ref = useRef(null)
   const response = useAppSelector((state) => state.code.result)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (ref) {
+      dispatch(setOutputWindowHeight((ref.current as any).clientHeight))
+    }
+  }, [])
 
   return <div className='output'>
-    <Typography variant="caption" display="block" gutterBottom>
-      Result
-    </Typography>
-    <Box className='output-box'>
-      {Object.keys(response).length === 0 ? <Typography variant="caption">{'{}'}</Typography> : <JsonFormatter json={JSON.stringify(response)} tabWith={4} jsonStyle={jsonStyle} />}
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 10, marginTop: 7 }}>
+      <Typography variant="caption" display="block">
+        Result
+      </Typography>
+    </div>
+    <Box ref={ref} className='output-box'>
+      <ReactJson defaultValue={{}} collapsed={false} displayDataTypes={false} iconStyle="triangle" style={{ height: '100%', width: '100%', backgroundColor: '#1E1E1E', fontFamily: 'Monaco' }} theme="tomorrow" src={response} />
     </Box>
   </div>
 }

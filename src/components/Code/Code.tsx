@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import { PlayArrow } from "@mui/icons-material"
 import AceEditor from "react-ace"
+import Beautify from 'ace-builds/src-noconflict/ext-beautify'
 import "ace-builds/src-noconflict/mode-typescript"
 import "ace-builds/src-noconflict/theme-monokai"
 import { Button, Typography } from "@mui/material"
@@ -12,18 +13,25 @@ import { setResponse, setSnippet } from "../../redux/slice"
 const CodeEditor = ({ }) => {
 
   const snippet = useAppSelector((state) => state.code.snippet)
+  const height = useAppSelector((state) => state.code.outputWindowHeight)
   const dispatch = useAppDispatch()
 
   return <AceEditor
+    onLoad={editorInstance => {
+      document.addEventListener("mouseup", e => (
+        editorInstance.resize()
+      ));
+    }}
     style={
       {
-        display: 'flex',
         width: '100%',
-        flex: 1,
-        backgroundColor: '#1E1E1E'
+        height: `${height ?? 100}px`,
+        backgroundColor: '#1E1E1E',
+        borderRadius: '4px',
+        border: '1px solid #855711',
       }
     }
-    showGutter={false}
+    showPrintMargin={false}
     value={snippet}
     onChange={(v) => {
       dispatch(setSnippet(v))
@@ -34,6 +42,9 @@ const CodeEditor = ({ }) => {
     placeholder='Type your code here...'
     name="UNIQUE_ID_OF_DIV"
     highlightActiveLine
+    wrapEnabled
+    commands={Beautify.commands}
+    enableSnippets
     editorProps={{ $blockScrolling: true }}
   />
 }
@@ -53,8 +64,8 @@ const CodeWindow = () => {
   }
 
   return <div className='displayArea'>
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-      <Typography sx={{ flexGrow: 1 }} variant="caption" display="block" gutterBottom>
+    <div style={{ display: 'flex', flex: 1, flexDirection: 'row', alignItems: 'center', marginBottom: '8.25px' }}>
+      <Typography sx={{ flexGrow: 1 }} variant="caption" display="block">
         Code
       </Typography>
       <Button disabled={loading} onClick={() => runCode(snippet)} sx={{ paddingLeft: 1, color: '#fff' }} variant="contained" color="primary">

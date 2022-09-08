@@ -12,7 +12,7 @@ const testnet = {
 // This connects with SubSocial parachain.
 // This is the default configuration
 const mainnet = {
-  substrateNodeUrl: 'wss://rpc.subsocial.network',
+  substrateNodeUrl: 'wss://para.f3joule.space',
   offchainUrl: 'https://app.subsocial.network/offchain',
   ipfsNodeUrl: 'https://app.subsocial.network/ipfs'
 }

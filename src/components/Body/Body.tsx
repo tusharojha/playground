@@ -1,13 +1,9 @@
-import { useState } from "react"
 import { Resizable } from 're-resizable'
-import ReactJson from 'react-json-view'
-import { Button, Divider, Drawer, Grid, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, Tab, Tabs, Typography, useTheme } from '@mui/material'
+import { styled } from '@mui/material'
 
 import OutputWindow from '../../components/Output/Output'
 import CodeWindow from '../../components/Code/Code'
-
-const drawerWidth = 256;
-const defaultCodeWidth = 60;
+import { defaultCodeWidth, drawerWidth } from '../../constants'
 
 export type BodyProps = {
   open: boolean;
@@ -38,7 +34,9 @@ const Body = (props: BodyProps) => {
   return <Main>
     <Resizable
       maxWidth="100%"
-      minWidth="40%" defaultSize={{ width: `${defaultCodeWidth}%`, height: '85vh' }}>
+      minWidth="40%" defaultSize={{ width: `${defaultCodeWidth}%`, height: '' }}
+      style={{ marginBottom: '24px' }}
+    >
       <div className="codeWindow">
 
         <CodeWindow />

@@ -41,8 +41,9 @@ button {
 }
 
 .logo {
+  width: 170px;
   height: 30px;
-  margin-right: 10px;
+  margin-right: 42px;
 }
 
 .logo-title {
@@ -73,17 +74,35 @@ button {
   display: flex;
   flex-direction: column;
   margin-right: 10px;
-  overflow-x: auto;
-  max-height: 85vh;
-  margin-top: 20px;
+  margin-top: 12px;
+  margin-right: 24px;
+  margin-bottom: 24px;
   flex: 1;
+  overflow-x: hidden;
 }
 
 .output-box {
   display: flex;
   flex: 1;
+  max-height: 82vh;
   background-color: #1E1E1E;
   padding: 10px;
+  padding-bottom: 0;
+  padding-top: 5px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.ace_gutter {
+  background-color: #1E1E1E !important;
+}
+
+.result-title {
+  display: 'flex' !important;
+  flex-direction: 'row' !important;
+  align-items: 'center' !important;
+  margin-bottom: 10 !important;
+  margin-top: 7 !important;
 }
 
 .codepart {
@@ -99,12 +118,11 @@ button {
 }
 
 .displayArea {
-  display: flex;
-  flex: 1;
   flex-direction: column;
   margin: 10px;
-  margin-top: 15px;
+  margin-left: 0;
   height: 100%;
+  margin-bottom: 24px;
 }
 
 .resizer {
@@ -123,10 +141,11 @@ button {
 }
 
 .codeWindow {
-  height: 85vh;
+  height: 100%;
   display: inline-flex;
   width: 100%;
 }
+
 .codeWindow .displayArea {
   flex-grow: 1;
   flex: 1;
@@ -140,8 +159,8 @@ button {
 }
 
 .dot {
-  height: 8px;
-  width: 8px;
+  height: 4px;
+  width: 4px;
   margin: 1px;
   background-color: #bbb;
   border-radius: 50%;

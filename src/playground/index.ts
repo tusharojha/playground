@@ -29,8 +29,13 @@ const playground = async (configDetails: any, codeSnippet: string) => {
 
   // Write your code here.
   const f = new Function("flatApi", data)
-  response = await f(flatApi)
-  console.log('response', response);
+  try {
+    response = await f(flatApi)
+    console.log('response', response);
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
 
   // The response object returned will be printed on the screen.
   return response;

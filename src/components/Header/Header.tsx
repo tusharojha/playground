@@ -3,6 +3,8 @@ import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material"
 import MenuIcon from '@mui/icons-material/MenuOutlined';
 import { useAppSelector } from "../../redux/hooks";
 
+const LEARN_MORE_LINK = "https://docs.subsocial.network/docs/develop"
+
 type HeaderProps = {
   toggleDrawer: () => void
 }
@@ -28,7 +30,7 @@ const Header = (props: HeaderProps) => {
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         {`${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}`}
       </Typography>
-      <Button variant="contained" color="info">Learn More</Button>
+      <Button onClick={() => window.open(LEARN_MORE_LINK, "_blank")} variant="contained" color="info">Learn More</Button>
     </Toolbar>
   </AppBar>
 }
