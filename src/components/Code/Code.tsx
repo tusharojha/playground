@@ -10,7 +10,7 @@ import runPlayground from "../../playground"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { setResponse, setSnippet } from "../../redux/slice"
 
-const CodeEditor = ({ }) => {
+const CodeEditor = () => {
 
   const snippet = useAppSelector((state) => state.code.snippet)
   const height = useAppSelector((state) => state.code.outputWindowHeight)

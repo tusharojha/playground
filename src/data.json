@@ -32,6 +32,26 @@
         "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Any account address.\nconst profile = await flatApi.subsocial.findProfileSpace(accountId)\nreturn profile",
         "const accountIds = ['5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs', '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud']\nconst profiles = await flatApi.subsocial.findProfileSpaces(accountIds)\nreturn profiles"
       ]
+    },
+    {
+      "key": "Comments",
+      "variants": [
+        ""
+      ],
+      "snippets": [
+        "const substrate = flatApi.subsocial.substrate\nconst postId = '1'\n\n// Get reply ids (comments) by parent post id and fetch posts by ids\nconst replyIds = await substrate.getReplyIdsByPostId(idToBn(postId))\n\n// For getting comments use posts functions\nconst replies = await flatApi.findPublicPosts(replyIds)\n return replies"
+      ]
+    },
+    {
+      "key": "Reactions",
+      "variants": [
+        "Single Reaction",
+        "Multiple Reactions"
+      ],
+      "snippets": [
+        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\nconst reaction = await flatApi.blockchain.getReactionIdsByAccount(myAccount, ['1'])\nreturn reaction",
+        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\n\nconst substrate = await flatApi.subsocial.substrate\nconst substrateApi = await flatApi.subsocial.substrate.api\n\nconst tuples = [ '1', '2', '3' ].map(postId => [ myAccount, postId ])\n\nconst reactionIds = await substrateApi.query.reactions.postReactionIdByAccount.multi(tuples)\nconst reactions = await substrate.findReactions(reactionIds)\nreturn reactions"
+      ]
     }
   ],
   "Writing Data": [
@@ -44,6 +64,19 @@
       ],
       "snippets": [
         "const spaceId = 1\nconst space = await flatApi.findSpace({id: spaceId})\nresponse = space;",
+        "const ownerAccountId = '<owner_account_public_key>'\n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\nreturn space;",
+        "const handleName = 'subsocial'\n\n// Fetching spaceId by Handle.\nconst spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n// Fetching space by spaceId.\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space;"
+      ]
+    },
+    {
+      "key": "Post Reaction",
+      "variants": [
+        "Create",
+        "Read",
+        "Update"
+      ],
+      "snippets": [
+        "const postId = '1' // Post Id you want to react on.\nconst substrateApi = await flatApi.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.createPostReaction(postId, 'Upvote')\n\nsignAndSendTx(reactionTx)",
         "const ownerAccountId = '<owner_account_public_key>'\n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\nreturn space;",
         "const handleName = 'subsocial'\n\n// Fetching spaceId by Handle.\nconst spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n// Fetching space by spaceId.\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space;"
       ]

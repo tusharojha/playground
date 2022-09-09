@@ -71,7 +71,7 @@ const theme = createTheme({
     },
     MuiList: {
       styleOverrides: {
-        root: ({ }) => ({
+        root: () => ({
           backgroundColor: '#000',
           padding: 0
         }),

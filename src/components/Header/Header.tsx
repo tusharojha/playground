@@ -26,7 +26,7 @@ const Header = (props: HeaderProps) => {
       >
         <MenuIcon />
       </IconButton>
-      <img className='logo' src={`${process.env.PUBLIC_URL}/playground.svg`} />
+      <img alt="playground" className='logo' src={`${process.env.PUBLIC_URL}/playground.svg`} />
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         {`${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}`}
       </Typography>

@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material"
-import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { Collapse, ListItemButton, ListItemText } from "@mui/material"
 import { useState } from "react"
 
 type ExpandableListItemProps = {

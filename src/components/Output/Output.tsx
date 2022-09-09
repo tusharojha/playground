@@ -17,7 +17,7 @@ const OutputWindow = () => {
   }, [])
 
   return <div className='output'>
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 10, marginTop: 7 }}>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 13, marginTop: 3 }}>
       <Typography variant="caption" display="block">
         Result
       </Typography>

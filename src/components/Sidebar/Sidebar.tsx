@@ -1,6 +1,5 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { List, ListItemButton, ListItemIcon, ListItemText, makeStyles, Typography } from '@mui/material';
-import { useEffect, useState } from 'react'
+import { List, ListItemButton, ListItemText } from '@mui/material';
+import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setSelectedItem, setSnippet } from '../../redux/slice';
 import ExpandableListItem from './ExpandableListItem';
@@ -31,9 +30,25 @@ const Sidebar = () => {
         {dataKeys.map((key) => {
           return <ExpandableListItem title={key}>
             {((data as any)[key]).map((item: any, index: number) => {
+              if (item.variants.length === 1) {
+                return <ListItemButton selected={selectedItem.globalKey === key && selectedItem.key === item.key && selectedItem.index === index}
+                  sx={{
+                    pl: 4,
+                    '&.Mui-selected': {
+                      backgroundColor: 'rgba(144, 202, 249, 0.16)',
+                    },
+                  }}
+                  onClick={() => {
+                    const resp = { ...item, index: 0, globalKey: key }
+                    dispatch(setSelectedItem(resp))
+                    dispatch(setSnippet(resp.snippets[resp.index]))
+                  }}>
+                  <ListItemText primary={item.key} />
+                </ListItemButton>
+              }
               return <ExpandableListItem sx={{ pl: 4 }} title={item.key}>
                 {item.variants.map((subItem: string, index: number) => {
-                  return <ListItemButton selected={selectedItem.globalKey == key && selectedItem.key == item.key && selectedItem.index == index}
+                  return <ListItemButton selected={selectedItem.globalKey === key && selectedItem.key === item.key && selectedItem.index === index}
                     sx={{
                       pl: 4,
                       '&.Mui-selected': {
