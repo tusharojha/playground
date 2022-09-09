@@ -1,6 +1,11 @@
 import { newFlatSubsocialApi } from "@subsocial/api";
+import {
+  IpfsContent,
+  OptionBool,
+  SpaceUpdate
+} from "@subsocial/types/substrate/classes"
 import config from "./config";
-// import { AnySpaceId } from "@subsocial/types";
+import { AnySpaceId } from "@subsocial/types";
 
 // Choose the environment you want to run the playground in.
 // You can choose between: testnet, mainnet, localnet
@@ -23,14 +28,13 @@ const playground = async (configDetails: any, codeSnippet: string) => {
   }
   return runScript()
   `
-
   // Store your API function result in the response object 
   let response: any
 
   // Write your code here.
-  const f = new Function("flatApi", data)
+  const f = new Function("flatApi", "IpfsContent", data)
   try {
-    response = await f(flatApi)
+    response = await f(flatApi, IpfsContent)
     console.log('response', response);
   } catch (e) {
     console.log(e)

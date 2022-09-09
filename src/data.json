@@ -4,26 +4,33 @@
       "key": "Space",
       "variants": [
         "By Id",
-        "By Owner",
-        "By Handle"
+        "By Owner"
       ],
       "snippets": [
-        "const spaceId = 1\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space;",
-        "const ownerAccountId = '<owner_account_public_key>'\n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\nreturn space;",
-        "const handleName = 'subsocial'\n\n// Fetching spaceId by Handle.\nconst spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n// Fetching space by spaceId.\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space;"
+        "const spaceId = 1\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space",
+        "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\nreturn spaces"
       ]
     },
     {
       "key": "Post",
       "variants": [
         "By Id",
-        "By Owner",
-        "By Handle"
+        "By Space Id"
       ],
       "snippets": [
-        "const postId = 1\nconst post = await flatApi.findPost({id: postId})\nreturn post;",
-        "const ownerAccountId = '<owner_account_public_key>'\n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\nreturn space;",
-        "const handleName = 'subsocial'\n\n// Fetching postId by Handle.\nconst spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n// Fetching space by spaceId.\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space;"
+        "const postId = 1 // Any post Id that you want to fetch.\nconst post = await flatApi.findPost({id: postId})\nreturn post",
+        "const spaceId = 1\nconst postIds = await flatApi.subsocial.substrate.postIdsBySpaceId(spaceId)\n\nconst posts = await flatApi.subsocial.findPosts({ids: postIds})\nreturn posts"
+      ]
+    },
+    {
+      "key": "Profile",
+      "variants": [
+        "Single Account",
+        "Multiple Accounts"
+      ],
+      "snippets": [
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Any account address.\nconst profile = await flatApi.subsocial.findProfileSpace(accountId)\nreturn profile",
+        "const accountIds = ['5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs', '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud']\nconst profiles = await flatApi.subsocial.findProfileSpaces(accountIds)\nreturn profiles"
       ]
     }
   ],
