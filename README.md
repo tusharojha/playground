@@ -2,11 +2,16 @@
 
 Play with Subsocial SDK in our playground.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/tusharojha/playground)
+Subsocial Playground helps you run different code snippets from our SDK without downloading it.
 
-## How to use it?
+To use the SDK, open this link in new tab.
 
-- Open the project in [GitPod](https://tusharojha.com)
-- Copy the code snippets from our [quick reference guide](https://docs.subsocial.network/docs/sdk/quick-reference)
-- Paste in the playground/index.ts file 
-- Run the code from UI to see output
+### Usage 
+
+On the left side, the Sidebar contains a list of code snippets that you might need while building your own dapp on Subsocial.
+
+Press the run button to see output.
+
+> There are a couple of inbuilt functions provided to help you focus on the main code snippet.
+
+Read the docs to see more details.

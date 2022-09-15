@@ -1,5 +1,6 @@
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useEffect } from 'react'
+import { drawerWidth } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setSelectedItem, setSnippet } from '../../redux/slice';
 import ExpandableListItem from './ExpandableListItem';
@@ -24,7 +25,7 @@ const Sidebar = () => {
   return <div>
     <div className='side-container'>
       <List
-        sx={{ width: '100%', maxWidth: 360, bgcolor: '#000' }}
+        sx={{ width: '100%', maxWidth: drawerWidth, bgcolor: '#000' }}
         component="nav"
       >
         {dataKeys.map((key) => {

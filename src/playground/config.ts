@@ -3,8 +3,7 @@ export type envType = 'testnet' | 'mainnet' | 'localnet' | string
 // Testnet configuration for the playground.
 // This connects with SoonSocialX testnet.
 const testnet = {
-  substrateNodeUrl: 'wss://testnet.subsocial.network',
-  offchainUrl: 'https://staging.subsocial.network/offchain',
+  substrateNodeUrl: 'wss://rco-para.subsocial.network',
   ipfsNodeUrl: 'https://staging.subsocial.network/ipfs'
 }
 
@@ -13,7 +12,6 @@ const testnet = {
 // This is the default configuration
 const mainnet = {
   substrateNodeUrl: 'wss://para.f3joule.space',
-  offchainUrl: 'https://app.subsocial.network/offchain',
   ipfsNodeUrl: 'https://app.subsocial.network/ipfs'
 }
 

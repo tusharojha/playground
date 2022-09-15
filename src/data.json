@@ -7,8 +7,8 @@
         "By Owner"
       ],
       "snippets": [
-        "const spaceId = 1\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space",
-        "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\nreturn spaces"
+        "const spaceId = 1\nconst space = await api.findSpace({id: spaceId})\nreturn space",
+        "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await api.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await api.subsocial.findSpaces({ids: spaceIds})\nreturn spaces"
       ]
     },
     {
@@ -18,8 +18,8 @@
         "By Space Id"
       ],
       "snippets": [
-        "const postId = 1 // Any post Id that you want to fetch.\nconst post = await flatApi.findPost({id: postId})\nreturn post",
-        "const spaceId = 1\nconst postIds = await flatApi.subsocial.substrate.postIdsBySpaceId(spaceId)\n\nconst posts = await flatApi.subsocial.findPosts({ids: postIds})\nreturn posts"
+        "const postId = 1 // Any post Id that you want to fetch.\nconst post = await api.findPost({id: postId})\nreturn post",
+        "const spaceId = 1\nconst postIds = await api.subsocial.substrate.postIdsBySpaceId(spaceId)\n\nconst posts = await api.subsocial.findPosts({ids: postIds})\nreturn posts"
       ]
     },
     {
@@ -29,8 +29,8 @@
         "Multiple Accounts"
       ],
       "snippets": [
-        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Any account address.\nconst profile = await flatApi.subsocial.findProfileSpace(accountId)\nreturn profile",
-        "const accountIds = ['5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs', '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud']\nconst profiles = await flatApi.subsocial.findProfileSpaces(accountIds)\nreturn profiles"
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Any account address.\nconst profile = await api.subsocial.findProfileSpace(accountId)\nreturn profile",
+        "const accountIds = ['5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs', '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud']\nconst profiles = await api.subsocial.findProfileSpaces(accountIds)\nreturn profiles"
       ]
     },
     {
@@ -39,7 +39,7 @@
         ""
       ],
       "snippets": [
-        "const substrate = flatApi.subsocial.substrate\nconst postId = '1'\n\n// Get reply ids (comments) by parent post id and fetch posts by ids\nconst replyIds = await substrate.getReplyIdsByPostId(idToBn(postId))\n\n// For getting comments use posts functions\nconst replies = await flatApi.findPublicPosts(replyIds)\n return replies"
+        "const substrate = api.subsocial.substrate\nconst postId = '1'\n\n// Get reply ids (comments) by parent post id and fetch posts by ids\nconst replyIds = await substrate.getReplyIdsByPostId(idToBn(postId))\n\n// For getting comments use posts functions\nconst replies = await api.findPublicPosts(replyIds)\n return replies"
       ]
     },
     {
@@ -49,8 +49,8 @@
         "Multiple Reactions"
       ],
       "snippets": [
-        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\nconst reaction = await flatApi.blockchain.getReactionIdsByAccount(myAccount, ['1'])\nreturn reaction",
-        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\n\nconst substrate = await flatApi.subsocial.substrate\nconst substrateApi = await flatApi.subsocial.substrate.api\n\nconst tuples = [ '1', '2', '3' ].map(postId => [ myAccount, postId ])\n\nconst reactionIds = await substrateApi.query.reactions.postReactionIdByAccount.multi(tuples)\nconst reactions = await substrate.findReactions(reactionIds)\nreturn reactions"
+        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\nconst reaction = await api.blockchain.getReactionIdsByAccount(myAccount, ['1'])\nreturn reaction",
+        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\n\nconst substrate = await api.subsocial.substrate\nconst substrateApi = await api.subsocial.substrate.api\n\nconst tuples = [ '1', '2', '3' ].map(postId => [ myAccount, postId ])\n\nconst reactionIds = await substrateApi.query.reactions.postReactionIdByAccount.multi(tuples)\nconst reactions = await substrate.findReactions(reactionIds)\nreturn reactions"
       ]
     }
   ],
@@ -58,27 +58,73 @@
     {
       "key": "Space",
       "variants": [
-        "By Id",
-        "By Owner",
-        "By Handle"
+        "Create",
+        "Update"
       ],
       "snippets": [
-        "const spaceId = 1\nconst space = await flatApi.findSpace({id: spaceId})\nresponse = space;",
-        "const ownerAccountId = '<owner_account_public_key>'\n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\nreturn space;",
-        "const handleName = 'subsocial'\n\n// Fetching spaceId by Handle.\nconst spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n// Fetching space by spaceId.\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space;"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS',\n  image: null,\n  name: 'Subsocial',\n  tags: [ 'subsocial' ]\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\nspaceTransaction.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst update = {\n  content: {\n    about: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS'\n  }\n}\n\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.updateSpace(\n spaceId, update)\n\nspaceTransaction.signAndSend(pair, logger)"
+      ]
+    },
+    {
+      "key": "Post",
+      "variants": [
+        "Regular",
+        "Shared",
+        "Update"
+      ],
+      "snippets": [
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  title: \"What is Subsocial?\",\n  image: null,\n  tags: [ 'Hello world', 'FAQ' ],\n  body: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS.'\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceId = '1' // The space in which you're posting.\nconst postTransaction = substrateApi.tx.posts.createPost(\n  spaceId,\n  { RegularPost: null }, // Creates a regular post.\n  IpfsContent(cid)\n)\n\npostTransaction.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1' // The space in which you're posting.\nconst parentPostId = '2' // The original post you want to share.\n\n// Creating new sharedPostCid having shared message.\nconst sharedPostCid = await ipfs.saveContent({\n  body: 'Keep up the good work!'\n})\n\nconst substrateApi = await api.blockchain.api\nconst postTransaction = substrateApi.tx.posts.createPost(\n  spaceId, \n  { SharedPost: parentPostId }, // Creates a shared post.\n  IpfsContent(sharedPostCid)) \n\npostTransaction.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '7' // Id of post which you want to update.\nconst substrateApi = await api.blockchain.api\n\nconst update = {\n  content: { title: \"What is Subsocial Parachain?\" }\n}\n\nconst postTransaction = substrateApi.tx.spaces.posts.updatePost(postId, update)\n\npostTransaction.signAndSend(pair, logger)"
       ]
     },
     {
       "key": "Post Reaction",
       "variants": [
         "Create",
-        "Read",
-        "Update"
+        "Update",
+        "Delete"
       ],
       "snippets": [
-        "const postId = '1' // Post Id you want to react on.\nconst substrateApi = await flatApi.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.createPostReaction(postId, 'Upvote')\n\nsignAndSendTx(reactionTx)",
-        "const ownerAccountId = '<owner_account_public_key>'\n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await flatApi.subsocial.substrate.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await flatApi.subsocial.findSpaces({ids: spaceIds})\nreturn space;",
-        "const handleName = 'subsocial'\n\n// Fetching spaceId by Handle.\nconst spaceId = await flatApi.subsocial.substrate.getSpaceIdByHandle(handleName)\n\n// Fetching space by spaceId.\nconst space = await flatApi.findSpace({id: spaceId})\nreturn space;"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to react on.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.createPostReaction(postId, 'Upvote')\n\nreactionTx.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to update reaction on.\nconst reactionId = '2' // Reaction Id to update.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.updatePostReaction(postId, reactionId, 'Downvote')\n\nreactionTx.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id on which reaction you want to delete reaction.\nconst reactionId = '2' // Reaction Id to delete.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.deletePostReaction(postId, reactionId)\n\nreactionTx.signAndSend(pair, logger)"
+      ]
+    }
+  ],
+  "Follows": [
+    {
+      "key": "Check if",
+      "variants": [
+        "Space Follower",
+        "Account Follower"
+      ],
+      "snippets": [
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst spaceId = '1'\n\nconst substrateApi = api.blockchain\nconst isFollower = await substrateApi.isSpaceFollower(accountId, spaceId)\nreturn {output: isFollower}",
+        "const yourAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst otherAccountId = '5CohLWq2wXUF8s45YDoMPv5xpey7uc9KQx3CUXAFf6YM6Wxe'\n\nconst substrateApi = await api.blockchain\nconst isFollower = await substrateApi.isAccountFollower(yourAccountId, otherAccountId)\nreturn {output: isFollower}"
+      ]
+    },
+    {
+      "key": "Following",
+      "variants": [
+        "Space",
+        "Account"
+      ],
+      "snippets": [
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.followSpace(spaceId)\ntx.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToFollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.followAccount(accountIdToFollow)\ntx.signAndSend(pair, logger)"
+      ]
+    },
+    {
+      "key": "Unfollowing",
+      "variants": [
+        "Space",
+        "Account"
+      ],
+      "snippets": [
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.unfollowSpace(spaceId)\ntx.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToFollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.followAccount(accountIdToFollow)\ntx.signAndSend(pair, logger)"
       ]
     }
   ]
