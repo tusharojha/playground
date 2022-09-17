@@ -5,7 +5,7 @@ import AceEditor from "react-ace"
 import Beautify from 'ace-builds/src-noconflict/ext-beautify'
 import "ace-builds/src-noconflict/mode-typescript"
 import "ace-builds/src-noconflict/theme-monokai"
-import { Button, Typography } from "@mui/material"
+import { Button, CircularProgress, Typography } from "@mui/material"
 import runPlayground from "../../playground"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { setResponse, setSnippet } from "../../redux/slice"
@@ -69,7 +69,7 @@ const CodeWindow = () => {
         Code
       </Typography>
       <Button disabled={loading} onClick={() => runCode(snippet)} sx={{ paddingLeft: 1, color: '#fff' }} variant="contained" color="primary">
-        <PlayArrow />Run
+        {loading ? <CircularProgress size={20} sx={{ marginRight: 1 }} /> : <PlayArrow />}Run
       </Button>
     </div>
     <CodeEditor />

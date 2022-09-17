@@ -5,7 +5,7 @@ import { IpfsContent } from '@subsocial/api/substrate/wrappers'
 import { idToBn } from "@subsocial/utils"
 import { toast } from "react-toastify"
 import { generateCrustAuthToken } from '@subsocial/api/utils/ipfs'
-import { waitReady } from '@polkadot/wasm-crypto';
+import { waitReady } from '@polkadot/wasm-crypto'
 
 (window as any).global = window;
 window.Buffer = window.Buffer || require('buffer').Buffer;
@@ -110,7 +110,11 @@ const playground = async (configDetails: any, codeSnippet: string) => {
 
   const data = `
   async function runScript() {
-    ${codeSnippet}
+    try {
+      ${codeSnippet}
+    } catch (e) {
+      console.log(e)
+    }
   }
   return runScript()
   `
