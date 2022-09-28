@@ -20,6 +20,7 @@ const CodeEditor = ({ runCode }: RunCodeProps) => {
   const snippet = useAppSelector((state) => state.code.snippet)
   const height = useAppSelector((state) => state.code.outputWindowHeight)
   const dispatch = useAppDispatch()
+  const [inFocus, setInFocus] = useState(false)
 
   return <AceEditor
     onLoad={editorInstance => {
@@ -35,7 +36,13 @@ const CodeEditor = ({ runCode }: RunCodeProps) => {
         borderRadius: '4px',
       }
     }
-    className="codeEditor"
+    onFocus={() => {
+      setInFocus(true)
+    }}
+    onBlur={(() => {
+      setInFocus(false)
+    })}
+    className={`codeEditor ${inFocus ? 'editor-focus' : ''}`}
     showPrintMargin={false}
     value={snippet}
     onChange={(v) => {
@@ -79,7 +86,6 @@ const CodeWindow = () => {
 
   const runCode = async (code: string) => {
     dispatch(setFetchingResult(true))
-    console.log(code)
     const res = await runPlayground(code)
     dispatch(setResponse(res))
     dispatch(setFetchingResult(false))
