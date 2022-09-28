@@ -23,7 +23,7 @@ const OutputWindow = () => {
       </Typography>
     </div>
     <Box ref={ref} className='output-box'>
-      <ReactJson defaultValue={{}} collapsed={false} displayDataTypes={false} iconStyle="triangle" style={{ height: '100%', width: '100%', backgroundColor: '#1E1E1E', fontFamily: 'Monaco' }} theme="tomorrow" src={response ? JSON.parse(JSON.stringify(response)) : undefined} />
+      <ReactJson defaultValue={{}} collapsed={false} displayDataTypes={false} iconStyle="triangle" style={{ height: '100%', width: '100%', backgroundColor: '#1E1E1E', fontSize: '14px', fontFamily: 'Monaco' }} theme="tomorrow" src={response ? JSON.parse(JSON.stringify(response)) : undefined} />
     </Box>
   </div>
 }

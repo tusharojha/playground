@@ -14,6 +14,7 @@ type SelectedItemType = {
 interface CounterState {
   snippet: string;
   result: any;
+  fetchingResult: boolean;
   selectedItem: SelectedItemType;
   outputWindowHeight?: number;
 }
@@ -22,6 +23,7 @@ interface CounterState {
 const initialState: CounterState = {
   snippet: '',
   result: {},
+  fetchingResult: false,
   selectedItem: {
     index: 0,
     globalKey: '',
@@ -46,11 +48,14 @@ export const counterSlice = createSlice({
     },
     setOutputWindowHeight: (state, action: PayloadAction<number>) => {
       state.outputWindowHeight = action.payload
+    },
+    setFetchingResult: (state, action: PayloadAction<boolean>) => {
+      state.fetchingResult = action.payload
     }
   },
 })
 
-export const { setResponse, setSnippet, setSelectedItem, setOutputWindowHeight } = counterSlice.actions
+export const { setResponse, setSnippet, setSelectedItem, setOutputWindowHeight, setFetchingResult } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectSnippet = (state: RootState) => state.code.snippet

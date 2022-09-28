@@ -122,15 +122,18 @@ const playground = async (configDetails: any, codeSnippet: string) => {
   let response: any
 
   // Write your code here.
-  const f = new Function("api", "idToBn", "signAndSendTx",
-    "IpfsContent", "keyring", "logger", "ipfs", data)
   try {
+    const f = new Function("api", "idToBn", "signAndSendTx",
+      "IpfsContent", "keyring", "logger", "ipfs", data)
     response = await f(api, idToBn, signAndSendTx, IpfsContent, keyring, logger, ipfs)
     console.log('response', response);
   } catch (e) {
     console.log(e)
     showToast((e as any).message)
-    return {}
+    return {
+      status: "Error",
+      message: (e as any).toString()
+    }
   }
 
   // The response object returned will be printed on the screen.

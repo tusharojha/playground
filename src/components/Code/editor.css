@@ -1,0 +1,7 @@
+.codeEditor {
+  border: 1px solid #000;
+}
+
+.codeEditor:focus {
+  border: 1px solid #855711;
+}

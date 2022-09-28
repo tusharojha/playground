@@ -6,11 +6,16 @@ import Beautify from 'ace-builds/src-noconflict/ext-beautify'
 import "ace-builds/src-noconflict/mode-typescript"
 import "ace-builds/src-noconflict/theme-monokai"
 import { Button, CircularProgress, Typography } from "@mui/material"
+import "./editor.css"
 import runPlayground from "../../playground"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { setResponse, setSnippet } from "../../redux/slice"
+import { setFetchingResult, setResponse, setSnippet } from "../../redux/slice"
 
-const CodeEditor = () => {
+type RunCodeProps = {
+  runCode: (s: string) => void
+}
+
+const CodeEditor = ({ runCode }: RunCodeProps) => {
 
   const snippet = useAppSelector((state) => state.code.snippet)
   const height = useAppSelector((state) => state.code.outputWindowHeight)
@@ -28,9 +33,9 @@ const CodeEditor = () => {
         height: `${height ?? 100}px`,
         backgroundColor: '#1E1E1E',
         borderRadius: '4px',
-        border: '1px solid #855711',
       }
     }
+    className="codeEditor"
     showPrintMargin={false}
     value={snippet}
     onChange={(v) => {
@@ -38,29 +43,46 @@ const CodeEditor = () => {
     }}
     mode="javascript"
     theme="monokai"
-    fontSize={16}
+    fontSize={14}
     placeholder='Type your code here...'
     name="UNIQUE_ID_OF_DIV"
     highlightActiveLine
     wrapEnabled
-    commands={Beautify.commands}
+    commands={[...Beautify.commands, {
+      name: 'Run Code',
+      bindKey: {
+        win: "Ctrl-Enter",
+        mac: "Cmd-Enter"
+      },
+      exec: (editor) => runCode(editor.getValue())
+    }]}
     enableSnippets
     editorProps={{ $blockScrolling: true }}
   />
 }
 
-
-const CodeWindow = () => {
-  const [loading, setLoading] = useState(false)
+const RunButton = ({ runCode }: RunCodeProps) => {
+  const loading = useAppSelector((state) => state.code.fetchingResult)
 
   const snippet = useAppSelector((state) => state.code.snippet)
+
+  const onBtnClick = async () => runCode(snippet)
+
+  return <Button disabled={loading} onClick={onBtnClick} sx={{ paddingLeft: 1, color: '#fff' }} variant="contained" color="primary">
+    {loading ? <CircularProgress size={20} sx={{ marginRight: 1 }} /> : <PlayArrow />}Run
+  </Button>
+}
+
+
+const CodeWindow = () => {
   const dispatch = useAppDispatch()
 
   const runCode = async (code: string) => {
-    setLoading(true)
+    dispatch(setFetchingResult(true))
+    console.log(code)
     const res = await runPlayground(code)
     dispatch(setResponse(res))
-    setLoading(false)
+    dispatch(setFetchingResult(false))
   }
 
   return <div className='displayArea'>
@@ -68,11 +90,9 @@ const CodeWindow = () => {
       <Typography sx={{ flexGrow: 1 }} variant="caption" display="block">
         Code
       </Typography>
-      <Button disabled={loading} onClick={() => runCode(snippet)} sx={{ paddingLeft: 1, color: '#fff' }} variant="contained" color="primary">
-        {loading ? <CircularProgress size={20} sx={{ marginRight: 1 }} /> : <PlayArrow />}Run
-      </Button>
+      <RunButton runCode={runCode} />
     </div>
-    <CodeEditor />
+    <CodeEditor runCode={runCode} />
   </div>
 }
 
