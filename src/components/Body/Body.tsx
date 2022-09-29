@@ -35,7 +35,7 @@ const Body = (props: BodyProps) => {
     <Resizable
       maxWidth="100%"
       minWidth="40%" defaultSize={{ width: `${defaultCodeWidth}%`, height: '' }}
-      style={{ marginBottom: '24px' }}
+      style={{ marginBottom: '24px', display: 'flex', flex: 1 }}
     >
       <div className="codeWindow">
 

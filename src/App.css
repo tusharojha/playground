@@ -118,11 +118,12 @@ button {
 }
 
 .displayArea {
+  display: flex;
   flex-direction: column;
   margin: 10px;
+  flex: 1;
   margin-left: 0;
-  height: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .resizer {
