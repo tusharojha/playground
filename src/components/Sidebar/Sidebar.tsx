@@ -4,7 +4,6 @@ import { drawerWidth } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setSelectedItem, setSnippet } from '../../redux/slice';
 import ExpandableListItem from './ExpandableListItem';
-import './sidebar.css';
 
 const data = require('../../data.json');
 const dataKeys = Object.keys(data) ?? [];

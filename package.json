@@ -27,6 +27,7 @@
     "buffer": "^6.0.3",
     "json-beautify": "^1.1.1",
     "json-formatter-js": "^2.3.4",
+    "next": "^12.3.1",
     "normalize-json-api-response": "^1.1.2",
     "re-resizable": "^6.9.9",
     "react": "^18.1.0",
@@ -38,7 +39,6 @@
     "react-redux": "^8.0.2",
     "react-resizable-layout": "^0.3.1",
     "react-resize-layout": "^0.2.3",
-    "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
     "redux": "^4.2.0",
     "typescript": "^4.7.2",
@@ -47,9 +47,9 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

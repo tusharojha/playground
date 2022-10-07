@@ -91,6 +91,15 @@
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to update reaction on.\nconst reactionId = '2' // Reaction Id to update.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.updatePostReaction(postId, reactionId, 'Downvote')\n\nreactionTx.signAndSend(pair, logger)",
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id on which reaction you want to delete reaction.\nconst reactionId = '2' // Reaction Id to delete.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.deletePostReaction(postId, reactionId)\n\nreactionTx.signAndSend(pair, logger)"
       ]
+    },
+    {
+      "key": "Profile",
+      "variants": [
+        ""
+      ],
+      "snippets": [
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial official account.',\n  avatar: '',\n  name: 'Subsocial',\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\nawait spaceTransaction.signAndSend(pair, logger)\nconst profileTx = substrateApi.tx.profiles.setProfile(spaceId);\n\nprofileTx.signAndSend(pair, logger)"
+      ]
     }
   ],
   "Follows": [

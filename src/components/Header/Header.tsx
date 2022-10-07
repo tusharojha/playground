@@ -1,5 +1,6 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material"
 
+import Image from 'next/image';
 import MenuIcon from '@mui/icons-material/MenuOutlined';
 import { useAppSelector } from "../../redux/hooks";
 
@@ -26,7 +27,13 @@ const Header = (props: HeaderProps) => {
       >
         <MenuIcon />
       </IconButton>
-      <img alt="playground" className='logo' src={`${process.env.PUBLIC_URL}/playground.svg`} />
+      <Image
+        width={210}
+        height={30}
+        alt="playground"
+        className='logo'
+        style={{ marginRight: 20 }}
+        src={`/playground.svg`} />
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         {`${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}`}
       </Typography>

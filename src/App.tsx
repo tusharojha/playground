@@ -1,14 +1,12 @@
 import { useState } from 'react'
-import './App.css'
 import { Drawer, styled } from '@mui/material'
 import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header/Header'
 import Body from './components/Body/Body'
 import { drawerWidth } from './constants'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
 import theme from './theme'
-function App() {
+function PlaygroundApp() {
   const [open, setOpen] = useState(true)
 
   const toggleDrawer = () => {
@@ -64,4 +62,4 @@ function App() {
   );
 }
 
-export default App;
+export default PlaygroundApp;

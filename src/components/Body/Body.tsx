@@ -1,8 +1,13 @@
 import { Resizable } from 're-resizable'
 import { styled } from '@mui/material'
+import dynamic from 'next/dynamic'
 
 import OutputWindow from '../../components/Output/Output'
-import CodeWindow from '../../components/Code/Code'
+// import CodeWindow from '../Code/Code'
+const CodeWindow = dynamic(
+  () => import('../../components/Code/Code'),
+  { ssr: false }
+)
 import { defaultCodeWidth, drawerWidth } from '../../constants'
 
 export type BodyProps = {

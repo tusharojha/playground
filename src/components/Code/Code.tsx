@@ -3,10 +3,7 @@ import { useState } from "react"
 import { PlayArrow } from "@mui/icons-material"
 import AceEditor from "react-ace"
 import Beautify from 'ace-builds/src-noconflict/ext-beautify'
-import "ace-builds/src-noconflict/mode-typescript"
-import "ace-builds/src-noconflict/theme-monokai"
 import { Button, CircularProgress, Typography } from "@mui/material"
-import "./editor.css"
 import runPlayground from "../../playground"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { setFetchingResult, setResponse, setSnippet } from "../../redux/slice"
@@ -21,7 +18,6 @@ const CodeEditor = ({ runCode }: RunCodeProps) => {
   const height = useAppSelector((state) => state.code.outputWindowHeight)
   const dispatch = useAppDispatch()
   const [inFocus, setInFocus] = useState(false)
-
   return <AceEditor
     onLoad={editorInstance => {
       document.addEventListener("mouseup", e => (
@@ -55,7 +51,7 @@ const CodeEditor = ({ runCode }: RunCodeProps) => {
     name="UNIQUE_ID_OF_DIV"
     highlightActiveLine
     wrapEnabled
-    commands={[...Beautify.commands, {
+    commands={[{
       name: 'Run Code',
       bindKey: {
         win: "Ctrl-Enter",
