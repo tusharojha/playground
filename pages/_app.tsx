@@ -6,8 +6,8 @@ import '../src/components/Sidebar/sidebar.css'
 import "../src/components/Code/editor.css"
 import React from 'react'
 import { Provider } from 'react-redux';
-import { ThemeProvider } from '@mui/material';
 import { store } from '../src/redux/store';
+import { ThemeProvider } from '@mui/material';
 import theme from '../src/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
