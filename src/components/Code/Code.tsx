@@ -1,12 +1,13 @@
 import { useState } from "react"
 
 import { PlayArrow } from "@mui/icons-material"
-import AceEditor from "react-ace"
-import Beautify from 'ace-builds/src-noconflict/ext-beautify'
 import { Button, CircularProgress, Typography } from "@mui/material"
 import runPlayground from "../../playground"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { setFetchingResult, setResponse, setSnippet } from "../../redux/slice"
+import dynamic from 'next/dynamic'
+
+const AceEditor = dynamic(import('react-ace'), { ssr: false })
 
 type RunCodeProps = {
   runCode: (s: string) => void
