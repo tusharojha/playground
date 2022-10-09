@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { PlayArrow } from "@mui/icons-material"
 import { Button, CircularProgress, Typography } from "@mui/material"
@@ -7,62 +7,11 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { setFetchingResult, setResponse, setSnippet } from "../../redux/slice"
 import dynamic from 'next/dynamic'
 
-const AceEditor = dynamic(import('react-ace'), { ssr: false })
+
+const CodeEditor = dynamic(import('./Editor'), { ssr: false })
 
 type RunCodeProps = {
   runCode: (s: string) => void
-}
-
-const CodeEditor = ({ runCode }: RunCodeProps) => {
-
-  const snippet = useAppSelector((state) => state.code.snippet)
-  const height = useAppSelector((state) => state.code.outputWindowHeight)
-  const dispatch = useAppDispatch()
-  const [inFocus, setInFocus] = useState(false)
-  return <AceEditor
-    onLoad={editorInstance => {
-      document.addEventListener("mouseup", e => (
-        editorInstance.resize()
-      ));
-    }}
-    style={
-      {
-        width: '100%',
-        height: `${height ?? 100}px`,
-        backgroundColor: '#1E1E1E',
-        borderRadius: '4px',
-      }
-    }
-    onFocus={() => {
-      setInFocus(true)
-    }}
-    onBlur={(() => {
-      setInFocus(false)
-    })}
-    className={`codeEditor ${inFocus ? 'editor-focus' : ''}`}
-    showPrintMargin={false}
-    value={snippet}
-    onChange={(v) => {
-      dispatch(setSnippet(v))
-    }}
-    mode="javascript"
-    theme="monokai"
-    fontSize={14}
-    placeholder='Type your code here...'
-    name="UNIQUE_ID_OF_DIV"
-    highlightActiveLine
-    wrapEnabled
-    commands={[{
-      name: 'Run Code',
-      bindKey: {
-        win: "Ctrl-Enter",
-        mac: "Cmd-Enter"
-      },
-      exec: (editor) => runCode(editor.getValue())
-    }]}
-    enableSnippets
-    editorProps={{ $blockScrolling: true }}
-  />
 }
 
 const RunButton = ({ runCode }: RunCodeProps) => {
