@@ -1,9 +1,11 @@
 import { Box, Typography } from "@mui/material"
 
-import ReactJson from "react-json-view"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { useEffect, useRef } from "react"
 import { setOutputWindowHeight } from "../../redux/slice"
+import dynamic from 'next/dynamic'
+
+const ReactJson = dynamic(import('react-json-view'), { ssr: false })
 
 const OutputWindow = () => {
   const ref = useRef(null)
