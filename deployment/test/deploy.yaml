@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playground
+  namespace: sub-back
+  labels:
+    app: playground
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: playground
+      labels:
+        app: playground
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - playground
+            topologyKey: kubernetes.io/hostname
+      containers:
+        - name: playground
+          image: <IMAGE>
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: playground
