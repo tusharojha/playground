@@ -1,5 +1,6 @@
 body {
   background-color: #000;
+  margin: 0;
 }
 
 .App {
@@ -84,7 +85,6 @@ button {
 .output-box {
   display: flex;
   flex: 1;
-  max-height: 82vh;
   background-color: #1E1E1E;
   padding: 10px;
   padding-bottom: 0;

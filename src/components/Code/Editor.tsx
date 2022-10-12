@@ -13,7 +13,6 @@ type RunCodeProps = {
 
 const CodeEditor = ({ runCode }: RunCodeProps) => {
   const snippet = useAppSelector((state) => state.code.snippet)
-  const height = useAppSelector((state) => state.code.outputWindowHeight)
   const dispatch = useAppDispatch()
   const [inFocus, setInFocus] = useState(false)
 
@@ -26,7 +25,6 @@ const CodeEditor = ({ runCode }: RunCodeProps) => {
     style={
       {
         width: '100%',
-        height: `${height ?? 100}px`,
         backgroundColor: '#1E1E1E',
         borderRadius: '4px',
         flex: 1,

@@ -3,7 +3,6 @@ import { styled } from '@mui/material'
 import dynamic from 'next/dynamic'
 
 import OutputWindow from '../../components/Output/Output'
-// import CodeWindow from '../Code/Code'
 const CodeWindow = dynamic(
   () => import('../../components/Code/Code'),
   { ssr: false }
@@ -38,9 +37,9 @@ const Body = (props: BodyProps) => {
 
   return <Main>
     <Resizable
-      maxWidth="100%"
+      maxWidth="80%"
       minWidth="40%" defaultSize={{ width: `${defaultCodeWidth}%`, height: '' }}
-      style={{ marginBottom: '24px', display: 'flex', flex: 1 }}
+      style={{ marginBottom: '24px' }}
     >
       <div className="codeWindow">
 
