@@ -14,7 +14,6 @@ const Header = (props: HeaderProps) => {
   const { toggleDrawer } = props
 
   const selectedItem = useAppSelector((state) => state.code.selectedItem)
-
   return <AppBar color="secondary" position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
     <Toolbar>
       <IconButton
@@ -35,7 +34,7 @@ const Header = (props: HeaderProps) => {
         style={{ marginRight: 20 }}
         src={`/playground.svg`} />
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        {`${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}`}
+        {selectedItem.globalKey !== '' ? `${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}` : ''}
       </Typography>
       <Button onClick={() => window.open(LEARN_MORE_LINK, "_blank")} variant="contained" color="info">Learn More</Button>
     </Toolbar>
