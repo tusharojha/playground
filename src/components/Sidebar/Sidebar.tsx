@@ -28,7 +28,10 @@ const Sidebar = () => {
         component="nav"
       >
         {dataKeys.map((key) => {
-          return <ExpandableListItem title={key}>
+          return <ExpandableListItem sx={{
+            pt: '4px',
+            pb: '4px',
+          }} title={key}>
             {((data as any)[key]).map((item: any, index: number) => {
               if (item.variants.length === 1) {
                 return <ListItemButton selected={selectedItem.globalKey === key && selectedItem.key === item.key && selectedItem.index === index}
@@ -46,7 +49,12 @@ const Sidebar = () => {
                   <ListItemText primary={item.key} />
                 </ListItemButton>
               }
-              return <ExpandableListItem sx={{ pl: 4 }} title={item.key}>
+              return <ExpandableListItem sx={{
+                pl: 4,
+                pt: '4px',
+                pb: '4px',
+                mb: '2px',
+              }} title={item.key}>
                 {item.variants.map((subItem: string, index: number) => {
                   return <ListItemButton selected={selectedItem.globalKey === key && selectedItem.key === item.key && selectedItem.index === index}
                     sx={{

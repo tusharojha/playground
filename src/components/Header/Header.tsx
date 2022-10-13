@@ -38,13 +38,12 @@ const Header = (props: HeaderProps) => {
         <MenuIcon />
       </IconButton>
       <Image
-        width={210}
+        width={180}
         height={30}
         alt="playground"
         className='logo'
-        style={{ marginRight: 20 }}
         src={`/playground.svg`} />
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: 4 }}>
         {selectedItem.globalKey !== '' ? `${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}` : ''}
       </Typography>
       <Button onClick={() => window.open(LEARN_MORE_LINK, "_blank")} variant="contained" color="info">Learn More</Button>
