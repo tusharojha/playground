@@ -26,7 +26,7 @@ const CodeEditor = ({ runCode }: RunCodeProps) => {
       {
         width: '100%',
         backgroundColor: '#1E1E1E',
-        borderRadius: '4px',
+        borderRadius: '6px',
         flex: 1,
       }
     }

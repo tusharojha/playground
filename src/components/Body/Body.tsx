@@ -16,9 +16,9 @@ export type BodyProps = {
 }
 
 const Loader = () => {
-  return <div style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <CircularProgress />
-    </div>
+  return <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <CircularProgress />
+  </div>
 }
 
 const Body = (props: BodyProps) => {
@@ -26,6 +26,7 @@ const Body = (props: BodyProps) => {
 
   const Main = styled('main')(
     ({ theme }) => ({
+      height: '90vh',
       display: 'flex',
       flexGrow: 1,
       transition: theme.transitions.create('margin', {

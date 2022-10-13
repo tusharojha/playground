@@ -38,7 +38,7 @@ const CodeWindow = () => {
   }
 
   return <div className='displayArea'>
-    <div style={{ display: 'flex', flex: '0 1', flexDirection: 'row', alignItems: 'center', marginBottom: '8.25px' }}>
+    <div style={{ display: 'flex', flex: '0 1', flexDirection: 'row', alignItems: 'center', marginBottom: '8.25px', minHeight: '36px' }}>
       <Typography sx={{ flexGrow: 1 }} variant="caption" display="block">
         Code
       </Typography>
