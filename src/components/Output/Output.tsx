@@ -9,8 +9,8 @@ const OutputWindow = () => {
   const response = useAppSelector((state) => state.code.result)
 
   return <div className='output'>
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 13, marginTop: 3 }}>
-      <Typography variant="caption" display="block">
+    <div style={{ display: 'flex', flex: '0 1', flexDirection: 'row', alignItems: 'center', marginBottom: '8.25px', minHeight: '34px' }}>
+      <Typography sx={{mt: 0}} variant="caption" display="block">
         Result
       </Typography>
     </div>
