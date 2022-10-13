@@ -48,7 +48,8 @@ button {
 .logo {
   width: 170px;
   height: 30px;
-  margin-right: 42px;
+  margin-left: 0px;
+  margin-right: 10px;
 }
 
 .logo-title {
