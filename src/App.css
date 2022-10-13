@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+.ace_gutter {
+  border-radius: 4px !important;
+}
+
 .App {
   min-height: 100vh;
   display: flex;
@@ -80,6 +84,7 @@ button {
   margin-bottom: 24px;
   flex: 1;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .output-box {

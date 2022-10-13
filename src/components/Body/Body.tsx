@@ -1,11 +1,13 @@
 import { Resizable } from 're-resizable'
-import { styled } from '@mui/material'
+import { CircularProgress, Grid, styled } from '@mui/material'
 import dynamic from 'next/dynamic'
 
 import OutputWindow from '../../components/Output/Output'
 const CodeWindow = dynamic(
   () => import('../../components/Code/Code'),
-  { ssr: false }
+  {
+    ssr: false, loading: () => <Loader />
+  }
 )
 import { defaultCodeWidth, drawerWidth } from '../../constants'
 
@@ -13,11 +15,18 @@ export type BodyProps = {
   open: boolean;
 }
 
+const Loader = () => {
+  return <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <CircularProgress />
+  </div>
+}
+
 const Body = (props: BodyProps) => {
   const { open } = props
 
   const Main = styled('main')(
     ({ theme }) => ({
+      height: '90vh',
       display: 'flex',
       flexGrow: 1,
       transition: theme.transitions.create('margin', {
@@ -42,7 +51,6 @@ const Body = (props: BodyProps) => {
       style={{ marginBottom: '24px' }}
     >
       <div className="codeWindow">
-
         <CodeWindow />
         <div className='resize-dots'>
           <div className='resizer'>
