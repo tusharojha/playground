@@ -1,17 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Drawer, styled } from '@mui/material'
 import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header/Header'
 import Body from './components/Body/Body'
 import { drawerWidth } from './constants'
+import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import theme from './theme'
-function PlaygroundApp() {
+import { useAppDispatch } from './redux/hooks'
+import { setSelectedItem, setSnippet } from './redux/slice'
+
+export type PlaygroundAppType = {
+  pageData?: any
+}
+
+function PlaygroundApp({ pageData }: PlaygroundAppType) {
   const [open, setOpen] = useState(true)
+  const dispatch = useAppDispatch()
+  const router = useRouter()
 
   const toggleDrawer = () => {
     setOpen(!open)
   }
+
+  useEffect(() => {
+    if (pageData !== null && pageData !== undefined) {
+      dispatch(setSelectedItem(pageData))
+      dispatch(setSnippet(pageData.snippets[pageData.index]))
+    } else if (router.asPath !== '/') {
+      router.replace('/')
+    }
+  }, [pageData])
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',

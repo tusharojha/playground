@@ -1,5 +1,6 @@
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { drawerWidth } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setSelectedItem, setSnippet } from '../../redux/slice';
@@ -10,16 +11,21 @@ const dataKeys = Object.keys(data) ?? [];
 
 const Sidebar = () => {
 
+  const router = useRouter();
   const dispatch = useAppDispatch()
   const selectedItem = useAppSelector((state) => state.code.selectedItem)
 
   useEffect(() => {
     const firstKey = dataKeys.length > 0 ? dataKeys[0] : ''
-    const objectData = { ...(data as any)[firstKey][0], globalKey: firstKey, index: 0 }
+    const objectData = { ...data[firstKey][0], globalKey: firstKey, index: 0 }
     dispatch(setSelectedItem(objectData))
     dispatch(setSnippet(objectData.snippets[objectData.index]))
   }, [])
 
+
+  const parseKeyToString = (key: string) => {
+    return key.toLowerCase().replaceAll(' ', '-');
+  }
 
   return <div>
     <div className='side-container'>
@@ -32,9 +38,9 @@ const Sidebar = () => {
             pt: '4px',
             pb: '4px',
           }} title={key}>
-            {((data as any)[key]).map((item: any, index: number) => {
+            {(data[key]).map((item: any, index: number) => {
               if (item.variants.length === 1) {
-                return <ListItemButton selected={selectedItem.globalKey === key && selectedItem.key === item.key && selectedItem.index === index}
+                return <ListItemButton selected={selectedItem.globalKey === key && selectedItem.key === item.key}
                   sx={{
                     pl: 4,
                     '&.Mui-selected': {
@@ -42,9 +48,7 @@ const Sidebar = () => {
                     },
                   }}
                   onClick={() => {
-                    const resp = { ...item, index: 0, globalKey: key }
-                    dispatch(setSelectedItem(resp))
-                    dispatch(setSnippet(resp.snippets[resp.index]))
+                    router.push(`/${parseKeyToString(key)}/${item.key.toLowerCase()}/`)
                   }}>
                   <ListItemText primary={item.key} />
                 </ListItemButton>
@@ -67,9 +71,7 @@ const Sidebar = () => {
                       },
                     }}
                     onClick={() => {
-                      const resp = { ...item, index: index, globalKey: key }
-                      dispatch(setSelectedItem(resp))
-                      dispatch(setSnippet(resp.snippets[resp.index]))
+                      router.push(`/${parseKeyToString(key)}/${item.key.toLowerCase()}/${parseKeyToString(subItem)}`)
                     }}>
                     <ListItemText primary={subItem} />
                   </ListItemButton>
