@@ -71,7 +71,7 @@ const Sidebar = () => {
                       },
                     }}
                     onClick={() => {
-                      router.push(`/${parseKeyToString(key)}/${item.key.toLowerCase()}/${parseKeyToString(subItem)}`)
+                      router.push(`/${parseKeyToString(key)}/${parseKeyToString(item.key)}/${parseKeyToString(subItem)}`)
                     }}>
                     <ListItemText primary={subItem} />
                   </ListItemButton>

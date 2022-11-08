@@ -10,7 +10,7 @@ const RoutePage = ({ parsedData }: { parsedData: any }) => {
   );
 }
 
-function parseKey(value: string): string | undefined {
+function parseKey(value: string): string {
   const splitItems = value.split('-')
   let str = ''
   splitItems.forEach((splitItem) => {
@@ -24,16 +24,17 @@ function parseKey(value: string): string | undefined {
 
 function parseQuery(type: string, key: string, variant: string): object | null {
   const parsedType = parseKey(type);
-  const parsedKey = key.toString();
+  const parsedKey = parseKey(key);
   const parsedVariant = parseKey(variant);
   if (parsedType == undefined || parsedKey == undefined) {
     return null;
   }
   if (dataKeys.includes(parsedType)) {
-    const indexOfKey = data[parsedType].findIndex((i) => i.key.toLowerCase() == parsedKey);
+    const indexOfKey = data[parsedType].findIndex((i) => i.key == parsedKey);
     if (indexOfKey !== -1) {
       const indexOfVariant = data[parsedType][indexOfKey].variants.findIndex((i) => i == parsedVariant);
       if (indexOfVariant !== -1) {
+
         return { ...data[parsedType][indexOfKey], globalKey: parsedType, index: indexOfVariant };
       }
     }
