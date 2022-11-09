@@ -24,7 +24,7 @@ function PlaygroundApp({ pageData }: PlaygroundAppType) {
   }
 
   useEffect(() => {
-    if (pageData !== null && pageData !== undefined) {
+    if (pageData) {
       dispatch(setSelectedItem(pageData))
       dispatch(setSnippet(pageData.snippets[pageData.index]))
     } else if (router.asPath !== '/') {

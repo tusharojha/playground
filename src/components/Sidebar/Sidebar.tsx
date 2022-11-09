@@ -5,8 +5,8 @@ import { drawerWidth } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setSelectedItem, setSnippet } from '../../redux/slice';
 import ExpandableListItem from './ExpandableListItem';
+import data from '../../data.json';
 
-const data = require('../../data.json');
 const dataKeys = Object.keys(data) ?? [];
 
 const Sidebar = () => {
@@ -17,7 +17,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     const firstKey = dataKeys.length > 0 ? dataKeys[0] : ''
-    const objectData = { ...data[firstKey][0], globalKey: firstKey, index: 0 }
+    const objectData = { ...(data as any)[firstKey][0], globalKey: firstKey, index: 0 }
     dispatch(setSelectedItem(objectData))
     dispatch(setSnippet(objectData.snippets[objectData.index]))
   }, [])
@@ -38,7 +38,7 @@ const Sidebar = () => {
             pt: '4px',
             pb: '4px',
           }} title={key}>
-            {(data[key]).map((item: any, index: number) => {
+            {((data as any)[key]).map((item: any, index: number) => {
               if (item.variants.length === 1) {
                 return <ListItemButton selected={selectedItem.globalKey === key && selectedItem.key === item.key}
                   sx={{
