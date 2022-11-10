@@ -133,7 +133,7 @@
       ],
       "snippets": [
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.unfollowSpace(spaceId)\ntx.signAndSend(pair, logger)",
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToFollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.unfollowAccount(accountIdToFollow)\ntx.signAndSend(pair, logger)"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToUnfollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.unfollowAccount(accountIdToUnfollow)\ntx.signAndSend(pair, logger)"
       ]
     }
   ]
