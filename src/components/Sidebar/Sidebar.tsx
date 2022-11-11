@@ -34,7 +34,7 @@ const Sidebar = () => {
         component="nav"
       >
         {dataKeys.map((key) => {
-          return <ExpandableListItem sx={{
+          return <ExpandableListItem key={key} sx={{
             pt: '4px',
             pb: '4px',
           }} title={key}>
@@ -53,7 +53,7 @@ const Sidebar = () => {
                   <ListItemText primary={item.key} />
                 </ListItemButton>
               }
-              return <ExpandableListItem sx={{
+              return <ExpandableListItem key={key} sx={{
                 pl: 4,
                 pt: '4px',
                 pb: '4px',

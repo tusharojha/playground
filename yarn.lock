@@ -955,54 +955,33 @@
     escape-string-regexp "^2.0.0"
     lodash.deburr "^4.1.0"
 
-"@subsocial/api@0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@subsocial/api/-/api-0.7.1.tgz#46b42e04aadc12f2e14a9f22db96d66130e3bccd"
-  integrity sha512-wxhTN25yyfX30sIp4Fntyv4i0p2LUfCZPjyheyaNRVMO63aUGMdjbd+4RTqnnbjcnfQiUgQc/V8RtyREZVahtQ==
+"@subsocial/api@0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@subsocial/api/-/api-0.7.5.tgz#70c8a42cdb80c3f317da99a8ad309c91ce142acb"
+  integrity sha512-U+A6y6LVevu+EhoEMm0UNkKll9HJqnwtlV8RCx23K8SiH9/lD/ITpdGQcBECCvFSV524dp3xWnXM5VyBXAzXHQ==
   dependencies:
     "@elastic/elasticsearch" "7.4.0"
     "@polkadot/api" latest
     "@polkadot/types" latest
     "@polkadot/types-known" latest
     "@polkadot/types-support" latest
-    "@subsocial/definitions" "0.7.0-dev.7"
-    "@subsocial/utils" "0.7.0-dev.7"
+    "@subsocial/definitions" "0.7.5"
+    "@subsocial/utils" "0.7.5"
     axios "^0.24.0"
     ipfs-http-client "56.0.3"
 
-"@subsocial/definitions@0.7.0-dev.7":
-  version "0.7.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@subsocial/definitions/-/definitions-0.7.0-dev.7.tgz#0b5bc742b12fa8b8a6456ad228e49e248e57f15d"
-  integrity sha512-LUbA2socHcdPTyfnHVWo08cgciEplhizJgI9md/p+DB69XGJbfPAJZoH6aYf50Wnn7Gf9HxnNulJsVEX7Fd+8g==
+"@subsocial/definitions@0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@subsocial/definitions/-/definitions-0.7.5.tgz#1552d7aaf809ae1ea2a82d56169196a54f7326e8"
+  integrity sha512-pUT4/Y95Bw0L4wWeumafJ91rB2jHSRPm8rMSzOvuXnfrDlYIG7wV1Rzepmct+EhbllARLeOMKc2SnfJ0dxdUKw==
   dependencies:
     "@polkadot/api" latest
     lodash.camelcase "^4.3.0"
 
-"@subsocial/utils@0.7.0-dev.7":
-  version "0.7.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@subsocial/utils/-/utils-0.7.0-dev.7.tgz#71952a02882a75a8494eb605c3de7889149556ef"
-  integrity sha512-nfPRmC28+iP9nEQHC/yvqCFC9gf0ZNiG7ekEUgWtYfhAyF7GCwYeHt6QetBOWhvR341/pfEJFhRmzxM3jqhoyg==
-  dependencies:
-    "@polkadot/util-crypto" latest
-    "@sindresorhus/slugify" "^1.1.0"
-    bignumber.js "^9.0.1"
-    bn.js "^5.1.1"
-    chalk "^3.0.0"
-    dayjs "^1.10.7"
-    lodash.isempty "^4.4.0"
-    lodash.memoize "^4.1.2"
-    lodash.truncate "^4.4.2"
-    loglevel "^1.7.0"
-    loglevel-plugin-prefix "^0.8.4"
-    remark "^13.0.0"
-    remark-gfm "^1.0.0"
-    remark-html "^13.0.1"
-    strip-markdown "^4.0.0"
-
-"@subsocial/utils@0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@subsocial/utils/-/utils-0.7.1.tgz#7f9e7b4a72ed27c62569acb1f3547471ffe012cb"
-  integrity sha512-n2Dt66W8UxqrlMkcoBTuBeNYizv25VpfL4V+nQhXgsxaPIcJm+VgSfchdf8brcd8o3N2I2F5bkaBBily5s9+XA==
+"@subsocial/utils@0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@subsocial/utils/-/utils-0.7.5.tgz#c3b8cfe343646b617d4c4eb68576ccc373384c94"
+  integrity sha512-4U+2n5ZIyMdYEV4g8sWlOM9X6X41BTa1U3DrY3hFQm0nYaTBMm3cvohrgN0WsfXm9fvswodAat9yQ8QioI78nw==
   dependencies:
     "@polkadot/util-crypto" latest
     "@sindresorhus/slugify" "^1.1.0"

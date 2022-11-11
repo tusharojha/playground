@@ -1,8 +1,7 @@
-import { getNewIdsFromEvent, SubsocialApi, SubsocialIpfsApi } from "@subsocial/api"
+import { getNewIdsFromEvent, SubsocialApi } from "@subsocial/api"
 import { Keyring } from "@polkadot/api"
 import config from "./config"
 import { IpfsContent } from '@subsocial/api/substrate/wrappers'
-import { ReactionId } from '@subsocial/api/types/substrate';
 import { idToBn } from "@subsocial/utils"
 import { toast } from "react-toastify"
 import { generateCrustAuthToken } from '@subsocial/api/utils/ipfs'
@@ -12,7 +11,7 @@ import { waitReady } from '@polkadot/wasm-crypto'
 // You can choose between: testnet, mainnet, localnet
 const configNet = 'testnet'
 
-var api
+let api
 
 const showToast = (message: string) => {
   toast(message, {
@@ -31,22 +30,15 @@ const playground = async (configDetails: any, codeSnippet: string) => {
   await waitReady()
   const keyring = new Keyring({ type: 'sr25519' })
 
-  // See API docs for more information: https://docs.subsocial.n`etwork/js-docs/js-sdk/index.html
+  // See API docs for more information: https://docs.subsocial.network/js-docs/js-sdk/index.html
   // Tryout from quick reference guide: https://docs.subsocial.network/docs/sdk/quick-reference
   api = await SubsocialApi.create({
-    ...configDetails,
-    useServer: {
-      httpRequestMethod: 'get'
-    }
+    ...configDetails
   })
 
   const authHeader = generateCrustAuthToken('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')
 
-  const ipfs = new SubsocialIpfsApi({
-    ipfsNodeUrl: 'https://crustwebsites.net'
-  })
-
-  ipfs.setWriteHeaders({
+  api.ipfs.setWriteHeaders({
     authorization: 'Basic ' + authHeader
   })
 
@@ -124,7 +116,7 @@ const playground = async (configDetails: any, codeSnippet: string) => {
   try {
     const f = new Function("api", "idToBn", "signAndSendTx",
       "IpfsContent", "keyring", "logger", "ipfs", data)
-    response = await f(api, idToBn, signAndSendTx, IpfsContent, keyring, logger, ipfs)
+    response = await f(api, idToBn, signAndSendTx, IpfsContent, keyring, logger, api.ipfs)
     console.log('response', response);
   } catch (e) {
     console.log(e)
