@@ -32,9 +32,15 @@ const localnet = {
   ipfsNodeUrl: 'http://127.0.0.1:8080'
 }
 
+export const networks = {
+  mainnet,
+  testnet,
+  localnet
+}
+
 // Sets the configuration for the playground according to the parameter.
 const config = (env: envType) => {
-  switch (env) {
+  switch (env.toLowerCase()) {
     case 'testnet':
       return testnet;
     case 'localnet':

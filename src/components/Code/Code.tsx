@@ -29,10 +29,11 @@ const RunButton = ({ runCode }: RunCodeProps) => {
 
 const CodeWindow = () => {
   const dispatch = useAppDispatch()
+  const selectedNetwork = useAppSelector((state) => state.code.selectedNetwork)
 
   const runCode = async (code: string) => {
     dispatch(setFetchingResult(true))
-    const res = await runPlayground(code)
+    const res = await runPlayground(code, selectedNetwork)
     dispatch(setResponse(res))
     dispatch(setFetchingResult(false))
   }

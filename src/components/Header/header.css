@@ -1,0 +1,32 @@
+.networkMenu {
+  border: 0px;
+  margin-top: 10px;
+}
+
+.menuBody {
+  background-color: #48494F;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.listItem {
+  color: #fff;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.listItem:last-child {
+  margin-bottom: 0px;
+}
+
+.listItem:hover {
+  background-color: rgb(162, 108, 25);
+}

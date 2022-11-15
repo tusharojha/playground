@@ -2,7 +2,6 @@ body {
   background-color: #000;
   margin: 0;
 }
-
 .ace_gutter {
   border-radius: 4px !important;
 }
@@ -85,7 +84,7 @@ button {
   margin-bottom: 24px;
   flex: 1;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .output-box {

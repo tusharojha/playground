@@ -12,6 +12,7 @@ type SelectedItemType = {
 
 // Define a type for the slice state
 interface CounterState {
+  selectedNetwork: string;
   snippet: string;
   result: any;
   fetchingResult: boolean;
@@ -21,6 +22,7 @@ interface CounterState {
 
 // Define the initial state using that type
 const initialState: CounterState = {
+  selectedNetwork: 'testnet',
   snippet: '',
   result: {},
   fetchingResult: false,
@@ -37,6 +39,9 @@ export const counterSlice = createSlice({
   name: 'code',
   initialState,
   reducers: {
+    setSelectedNetwork: (state, action: PayloadAction<string>) => {
+      state.selectedNetwork = action.payload
+    },
     setSnippet: (state, action: PayloadAction<string>) => {
       state.snippet = action.payload
     },
@@ -55,7 +60,7 @@ export const counterSlice = createSlice({
   },
 })
 
-export const { setResponse, setSnippet, setSelectedItem, setOutputWindowHeight, setFetchingResult } = counterSlice.actions
+export const { setResponse, setSnippet, setSelectedItem, setSelectedNetwork, setOutputWindowHeight, setFetchingResult } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectSnippet = (state: RootState) => state.code.snippet

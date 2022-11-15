@@ -7,12 +7,6 @@ import { toast } from "react-toastify"
 import { generateCrustAuthToken } from '@subsocial/api/utils/ipfs'
 import { waitReady } from '@polkadot/wasm-crypto'
 
-// Choose the environment you want to run the playground in.
-// You can choose between: testnet, mainnet, localnet
-const configNet = 'testnet'
-
-let api
-
 const showToast = (message: string) => {
   toast(message, {
     position: "bottom-right",
@@ -26,22 +20,31 @@ const showToast = (message: string) => {
 }
 
 const playground = async (configDetails: any, codeSnippet: string) => {
-  
+
   await waitReady()
   const keyring = new Keyring({ type: 'sr25519' })
 
   // See API docs for more information: https://docs.subsocial.network/js-docs/js-sdk/index.html
   // Tryout from quick reference guide: https://docs.subsocial.network/docs/sdk/quick-reference
-  api = await SubsocialApi.create({
-    ...configDetails
-  })
+  let api
+  try {
+    api = await SubsocialApi.create({
+      ...configDetails
+    })
 
-  const authHeader = generateCrustAuthToken('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')
+    const authHeader = generateCrustAuthToken('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')
 
-  api.ipfs.setWriteHeaders({
-    authorization: 'Basic ' + authHeader
-  })
-
+    api.ipfs.setWriteHeaders({
+      authorization: 'Basic ' + authHeader
+    })
+  } catch (e) {
+    console.log(e)
+    showToast((e as any).message)
+    return {
+      status: "Error",
+      message: (e as any).toString()
+    }
+  }
 
   const logger = (result: any) => {
     const { status } = result
@@ -59,7 +62,6 @@ const playground = async (configDetails: any, codeSnippet: string) => {
       if (newIds.length > 0) {
         showToast(`⚡️ New Item Id: ${newIds[0]}`)
       }
-      return;
     } else if (result.isError) {
       console.log(JSON.stringify(result));
       showToast(JSON.stringify(result));
@@ -131,9 +133,10 @@ const playground = async (configDetails: any, codeSnippet: string) => {
   return response;
 }
 
-const runPlayground = async (codeSnippet: string) => {
-  const configDetails = config(configNet);
-  return await playground(configDetails, codeSnippet)
+const runPlayground = async (codeSnippet: string, selectedNetwork: string) => {
+  const configDetails = config(selectedNetwork);
+  const response = await playground(configDetails, codeSnippet)
+  return response;
 }
 
 export default runPlayground
