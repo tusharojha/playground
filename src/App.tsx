@@ -3,13 +3,14 @@ import { Drawer, styled } from '@mui/material'
 import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header/Header'
 import Body from './components/Body/Body'
-import { drawerWidth } from './constants'
+import { drawerWidth, WRITING_KEYS } from './constants'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import theme from './theme'
-import { useAppDispatch } from './redux/hooks'
-import { setSelectedItem, setSnippet } from './redux/slice'
+import { useAppDispatch, useAppSelector } from './redux/hooks'
+import { setSelectedItem, setSelectedNetwork, setSnippet } from './redux/slice'
 
+const NETWORK_KEY = "SELECTED_NETWORK"
 export type PlaygroundAppType = {
   pageData?: any
 }
@@ -18,19 +19,29 @@ function PlaygroundApp({ pageData }: PlaygroundAppType) {
   const [open, setOpen] = useState(true)
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const selectedNetwork = useAppSelector((state) => state.code.selectedNetwork)
 
   const toggleDrawer = () => {
     setOpen(!open)
   }
 
   useEffect(() => {
+    const network = localStorage.getItem(NETWORK_KEY)
+    if (network != null) {
+      dispatch(setSelectedNetwork(network))
+    }
+
     if (pageData) {
+      if (network === 'mainnet' && (WRITING_KEYS.indexOf(pageData['globalKey']) !== -1)) {
+        router.replace('/')
+        return;
+      }
       dispatch(setSelectedItem(pageData))
       dispatch(setSnippet(pageData.snippets[pageData.index]))
     } else if (router.asPath !== '/') {
       router.replace('/')
     }
-  }, [pageData])
+  }, [pageData, selectedNetwork])
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',

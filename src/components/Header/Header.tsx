@@ -2,11 +2,11 @@ import { AppBar, Button, IconButton, Toolbar, Typography, Menu, MenuItem } from 
 
 import Image from 'next/image';
 import MenuIcon from '@mui/icons-material/MenuOutlined';
-import { OpenInNewRounded, InfoOutlined, LayersSharp } from "@mui/icons-material";
+import { OpenInNewRounded, InfoOutlined, LayersSharp, ArrowDropDownSharp } from "@mui/icons-material";
 import Head from 'next/head';
 import data from '../../data.json';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { networks } from "../../playground/config";
 import { setSelectedNetwork } from "../../redux/slice";
 
@@ -26,13 +26,6 @@ const Header = (props: HeaderProps) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  useEffect(() => {
-    const network = localStorage.getItem(NETWORK_KEY)
-    if (network != null) {
-      dispatch(setSelectedNetwork(network))
-    }
-  }, [])
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -83,7 +76,7 @@ const Header = (props: HeaderProps) => {
         src={`/playground.svg`} />
       <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: 4 }}>
         {selectedItem.globalKey !== '' ? `${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}` : ''}
-        <Button onClick={onOpenDocsTap} style={{ marginLeft: 32, justifyContent: 'flex-start' }}>Open Docs<OpenInNewRounded fontSize="small" style={{ marginLeft: 10 }} /></Button>
+        <Button onClick={onOpenDocsTap} style={{ marginLeft: 10, justifyContent: 'flex-start' }}>Open Docs<OpenInNewRounded fontSize="small" style={{ marginLeft: 10 }} /></Button>
       </Typography>
 
       <Button style={{ marginRight: 16 }}
@@ -94,6 +87,7 @@ const Header = (props: HeaderProps) => {
         variant="contained" color="info">
         <LayersSharp style={{ marginRight: 10 }} />
         {selectedNetwork}
+        <ArrowDropDownSharp style={{ marginLeft: 10 }} />
       </Button>
       <Menu
         id="basic-menu"

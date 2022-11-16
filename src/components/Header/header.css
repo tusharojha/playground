@@ -1,26 +1,26 @@
 .networkMenu {
-  border: 0px;
-  margin-top: 10px;
+  border: 0px !important;
+  margin-top: 10px !important;
 }
 
 .menuBody {
-  background-color: #48494F;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  background-color: #48494F !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .listItem {
-  color: #fff;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 14px;
-  margin-bottom: 5px;
-  border-radius: 4px;
+  color: #fff !important;
+  padding-left: 51px !important;
+  padding-right: 51px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  font-size: 14px !important;
+  margin-bottom: 5px !important;
+  border-radius: 4px !important;
 }
 
 .listItem:last-child {
@@ -28,5 +28,5 @@
 }
 
 .listItem:hover {
-  background-color: rgb(162, 108, 25);
+  background-color: rgb(162, 108, 25) !important;
 }

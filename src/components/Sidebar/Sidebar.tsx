@@ -1,7 +1,7 @@
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { drawerWidth } from '../../constants';
+import { drawerWidth, WRITING_KEYS } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setSelectedItem, setSnippet } from '../../redux/slice';
 import ExpandableListItem from './ExpandableListItem';
@@ -14,6 +14,7 @@ const Sidebar = () => {
   const router = useRouter();
   const dispatch = useAppDispatch()
   const selectedItem = useAppSelector((state) => state.code.selectedItem)
+  const selectedNetwork = useAppSelector((state) => state.code.selectedNetwork)
 
   useEffect(() => {
     const firstKey = dataKeys.length > 0 ? dataKeys[0] : ''
@@ -34,6 +35,8 @@ const Sidebar = () => {
         component="nav"
       >
         {dataKeys.map((key) => {
+          const index = WRITING_KEYS.indexOf(key)
+          if (index !== -1 && selectedNetwork === "mainnet") return <></>
           return <ExpandableListItem key={key} sx={{
             pt: '4px',
             pb: '4px',
