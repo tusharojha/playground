@@ -7,9 +7,6 @@ import { toast } from "react-toastify"
 import { generateCrustAuthToken } from '@subsocial/api/utils/ipfs'
 import { waitReady } from '@polkadot/wasm-crypto'
 
-let lastNetwork: string | undefined
-let api: SubsocialApi | null
-
 const showToast = (message: string) => {
   toast(message, {
     position: "bottom-right",
@@ -78,31 +75,14 @@ const signAndSendTx = async (tx: any, accountId: string) => {
   })
 }
 
-const playground = async (configDetails: any, codeSnippet: string) => {
+const playground = async (codeSnippet: string, api: SubsocialApi | undefined) => {
 
-  console.log(configDetails)
   await waitReady()
   const keyring = new Keyring({ type: 'sr25519' })
   // See API docs for more information: https://docs.subsocial.network/js-docs/js-sdk/index.html
   // Tryout from quick reference guide: https://docs.subsocial.network/docs/sdk/quick-reference
 
   try {
-    api = await SubsocialApi.create({
-      ...configDetails
-    });
-    if (!(await api.substrateApi).isReady) {
-      await (await api.substrateApi).connect()
-    }
-    // console.log(api.ipfs.client.)
-    if (configDetails['substrateNodeUrl'] === testnet.substrateNodeUrl) {
-      console.log('herere')
-      const authHeader = generateCrustAuthToken('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')
-
-      api.ipfs.setWriteHeaders({
-        authorization: 'Basic ' + authHeader
-      })
-    }
-
     const data = `
   async function runScript() {
     try {
@@ -119,7 +99,7 @@ const playground = async (configDetails: any, codeSnippet: string) => {
 
     const f = new Function("api", "idToBn", "signAndSendTx",
       "IpfsContent", "keyring", "logger", "ipfs", "showToast", data)
-    response = await f(api, idToBn, signAndSendTx, IpfsContent, keyring, logger, api.ipfs, showToast)
+    response = await f(api, idToBn, signAndSendTx, IpfsContent, keyring, logger, api!.ipfs, showToast)
     console.log('response', response);
     // The response object returned will be printed on the screen.
     return response;
@@ -133,15 +113,8 @@ const playground = async (configDetails: any, codeSnippet: string) => {
   }
 }
 
-const runPlayground = async (codeSnippet: string, selectedNetwork: string) => {
-  if (lastNetwork === undefined) lastNetwork = selectedNetwork;
-  else if (lastNetwork !== selectedNetwork) {
-    lastNetwork = selectedNetwork;
-    api = null
-  }
-  console.log(selectedNetwork)
-  const configDetails = config(selectedNetwork);
-  const response = await playground(configDetails, codeSnippet)
+const runPlayground = async (codeSnippet: string, api: SubsocialApi | undefined) => {
+  const response = await playground(codeSnippet, api)
   return response;
 }
 

@@ -14,8 +14,8 @@
 
 .listItem {
   color: #fff !important;
-  padding-left: 51px !important;
-  padding-right: 51px !important;
+  padding-left: 46px !important;
+  padding-right: 46px !important;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
   font-size: 14px !important;
@@ -23,10 +23,16 @@
   border-radius: 4px !important;
 }
 
+.selected {
+  display: flex;
+  padding-left: 15px !important;
+  color: #E89B25 !important;
+}
+
 .listItem:last-child {
   margin-bottom: 0px;
 }
 
 .listItem:hover {
-  background-color: rgb(162, 108, 25) !important;
+  background-color: #1C252D !important;
 }

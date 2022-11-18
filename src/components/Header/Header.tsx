@@ -2,7 +2,7 @@ import { AppBar, Button, IconButton, Toolbar, Typography, Menu, MenuItem } from 
 
 import Image from 'next/image';
 import MenuIcon from '@mui/icons-material/MenuOutlined';
-import { OpenInNewRounded, InfoOutlined, LayersSharp, ArrowDropDownSharp } from "@mui/icons-material";
+import { OpenInNewRounded, InfoOutlined, LayersSharp, ArrowDropDownSharp, CheckRounded } from "@mui/icons-material";
 import Head from 'next/head';
 import data from '../../data.json';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -79,15 +79,15 @@ const Header = (props: HeaderProps) => {
         <Button onClick={onOpenDocsTap} style={{ marginLeft: 10, justifyContent: 'flex-start' }}>Open Docs<OpenInNewRounded fontSize="small" style={{ marginLeft: 10 }} /></Button>
       </Typography>
 
-      <Button style={{ marginRight: 16 }}
+      <Button style={{ marginRight: 16, fontSize: '14px' }}
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         variant="contained" color="info">
-        <LayersSharp style={{ marginRight: 10 }} />
+        <LayersSharp fontSize="small" style={{ marginRight: 10 }} />
         {selectedNetwork}
-        <ArrowDropDownSharp style={{ marginLeft: 10 }} />
+        <ArrowDropDownSharp style={{ marginLeft: 0 }} />
       </Button>
       <Menu
         id="basic-menu"
@@ -98,11 +98,14 @@ const Header = (props: HeaderProps) => {
       >
         <div className="menuBody">
           {Object.keys(networks).map((item) => {
-            return <MenuItem className="listItem" onClick={() => selectNetwork(item)}>{item.toUpperCase()}</MenuItem>
+            if (item === selectedNetwork) {
+              return <MenuItem key={item} className="listItem selected" onClick={() => selectNetwork(item)}><CheckRounded style={{ marginRight: 5 }} /> {item.toUpperCase()}</MenuItem>
+            }
+            return <MenuItem key={item} className="listItem" onClick={() => selectNetwork(item)}>{item.toUpperCase()}</MenuItem>
           })}
         </div>
       </Menu>
-      <Button onClick={() => window.open(LEARN_MORE_LINK, "_blank")} variant="contained" color="info"><InfoOutlined style={{ marginRight: 10 }} />About App</Button>
+      <Button onClick={() => window.open(LEARN_MORE_LINK, "_blank")} variant="contained" color="info"><InfoOutlined fontSize="small" style={{ marginRight: 10 }} />About App</Button>
     </Toolbar>
   </AppBar>
 }

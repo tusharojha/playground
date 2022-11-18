@@ -12,7 +12,7 @@ export const testnet = {
 // This is the default configuration
 export const mainnet = {
   substrateNodeUrl: 'wss://para.f3joule.space',
-  ipfsNodeUrl: 'https://app.subsocial.network/ipfs',
+  ipfsNodeUrl: 'https://ipfs.subsocial.network',
   useServer: {
     httpRequestMethod: 'get'
   }
