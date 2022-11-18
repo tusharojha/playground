@@ -69,8 +69,8 @@ const Sidebar = () => {
                   return <ListItemButton key={subItem + index} selected={selectedItem.globalKey === key && selectedItem.key === item.key && selectedItem.index === index}
                     sx={{
                       pl: 4,
-                      pt: '4px',
-                      pb: '4px',
+                      pt: '2px',
+                      pb: '2px',
                       mb: '4px',
                       '&.Mui-selected': {
                         backgroundColor: '#1C252D',

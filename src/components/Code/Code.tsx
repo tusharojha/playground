@@ -8,6 +8,7 @@ import { setFetchingResult, setIsApiReady, setResponse } from "../../redux/slice
 import dynamic from 'next/dynamic'
 import { generateCrustAuthToken, SubsocialApi } from "@subsocial/api"
 import config from "../../playground/config"
+import useNetworkManager from "../../networkManager"
 
 
 const CodeEditor = dynamic(import('./Editor'), { ssr: false })
@@ -32,33 +33,27 @@ const RunButton = ({ runCode }: RunCodeProps) => {
 const CodeWindow = () => {
   const dispatch = useAppDispatch()
   const selectedNetwork = useAppSelector((state) => state.code.selectedNetwork)
-  const [api, setApi] = useState<SubsocialApi>()
-  const isApiReady = useAppSelector((state) => state.code.isApiReady)
 
-  const setupApi = async () => {
-    const configDetails = config(selectedNetwork)
-    const newApi = await SubsocialApi.create(configDetails)
-    setApi(newApi)
-    dispatch(setIsApiReady(true))
-  }
-  useEffect(() => {
-    dispatch(setIsApiReady(false))
-    setApi(undefined)
-    setupApi()
-  }, [selectedNetwork])
+  const { api, isApiReady } = useNetworkManager()
 
   const runCode = async (code: string) => {
-    if (!isApiReady) return;
+    if (!isApiReady || api == undefined) return;
+
+    const selectedNetworkApi = api.get(selectedNetwork)
+
+    if (selectedNetworkApi == undefined) return;
+
+    console.log(selectedNetwork, selectedNetworkApi)
     dispatch(setFetchingResult(true))
     if (selectedNetwork === 'testnet') {
       const authHeader = generateCrustAuthToken('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice');
-      console.log(api)
-      api!.ipfs.setWriteHeaders({
+
+      selectedNetworkApi.ipfs.setWriteHeaders({
         authorization: 'Basic ' + authHeader
       })
 
     }
-    const res = await runPlayground(code, api)
+    const res = await runPlayground(code, selectedNetworkApi)
     dispatch(setResponse(res))
     dispatch(setFetchingResult(false))
   }

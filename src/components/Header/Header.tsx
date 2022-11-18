@@ -37,6 +37,7 @@ const Header = (props: HeaderProps) => {
   const selectNetwork = (item: string) => {
     localStorage.setItem(NETWORK_KEY, item);
     dispatch(setSelectedNetwork(item))
+    window.location.reload()
     handleClose()
   }
 
