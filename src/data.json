@@ -71,6 +71,24 @@
         "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\nconst reaction = await api.blockchain.getReactionIdsByAccount(myAccount, ['1'])\nreturn reaction",
         "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\n\nconst substrate = await api.blockchain\nconst substrateApi = await api.blockchain.api\n\nconst tuples = [ '1', '2', '3' ].map(postId => [ myAccount, postId ])\n\nconst reactionIds = await substrateApi.query.reactions.postReactionIdByAccount.multi(tuples)\nconst reactions = await substrate.findReactions(reactionIds)\nreturn reactions"
       ]
+    },
+    {
+      "key": "Follows",
+      "variants": [
+        "Account Following",
+        "Account Followers",
+        "Space Followers"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#accountsfollowedbyaccount",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#accountfollowers",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#spacefollowers"
+      ],
+      "snippets": [
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\n\nconst following = await substrateApi.query.accountFollows.accountsFollowedByAccount(accountId)\nreturn following",
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\n\nconst followers = await substrateApi.query.accountFollows.accountFollowers(accountId)\nreturn followers",
+        "const spaceId = '1'\nconst substrateApi = await api.blockchain.api\n\nconst followers = await substrateApi.query.spaceFollows.spaceFollowers(spaceId)\nreturn followers"
+      ]
     }
   ],
   "Writing Data": [
