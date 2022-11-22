@@ -89,6 +89,21 @@
         "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\n\nconst followers = await substrateApi.query.accountFollows.accountFollowers(accountId)\nreturn followers",
         "const spaceId = '1'\nconst substrateApi = await api.blockchain.api\n\nconst followers = await substrateApi.query.spaceFollows.spaceFollowers(spaceId)\nreturn followers"
       ]
+    },
+    {
+      "key": "Domains",
+      "variants": [
+        "By Owner",
+        "By Name"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#accountsfollowedbyaccount",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#accountfollowers"
+      ],
+      "snippets": [
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst domains = await api.blockchain.domainsByOwner(accountId)\nreturn domains",
+        "const domainName = 'olehmell.sub'\nconst domainDetails = await api.blockchain.registeredDomain(domainName)\nreturn domainDetails"
+      ]
     }
   ],
   "Writing Data": [
