@@ -6,6 +6,10 @@
         "By Id",
         "By Owner"
       ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/spaces/fetch-spaces#find-and-load-single-space",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/spaces/fetch-spaces#find-and-load-space-ids-by-owner"
+      ],
       "snippets": [
         "const spaceId = 1\nconst space = await api.findSpace({id: spaceId})\nreturn space",
         "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await api.blockchain.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await api.base.findSpaces({ids: spaceIds})\nreturn spaces"
@@ -16,6 +20,10 @@
       "variants": [
         "By Id",
         "By Space Id"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/posts/fetch-posts#find-and-load-a-single-post",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/posts/fetch-posts#find-and-load-post-ids-by-space-id"
       ],
       "snippets": [
         "const postId = 1 // Any post Id that you want to fetch.\nconst post = await api.findPost({id: postId})\nreturn post",
@@ -28,6 +36,10 @@
         "Single Account",
         "Multiple Accounts"
       ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/fetch-profiles#find-and-load-a-single-profile",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/fetch-profiles#find-and-load-a-single-profile"
+      ],
       "snippets": [
         "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Any account address.\nconst profile = await api.base.findProfileSpace(accountId)\nreturn profile",
         "const accountIds = ['5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs', '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud']\nconst profiles = await api.base.findProfileSpaces(accountIds)\nreturn profiles"
@@ -37,6 +49,9 @@
       "key": "Comments",
       "variants": [
         ""
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/comments/fetch-comments"
       ],
       "snippets": [
         "const substrate = api.blockchain\nconst postId = '1'\n\n// Get reply ids (comments) by parent post id and fetch posts by ids\nconst replyIds = await substrate.getReplyIdsByPostId(idToBn(postId))\n\n// For getting comments use posts functions\nconst replies = await api.findPublicPosts(replyIds)\n return replies"
@@ -48,9 +63,49 @@
         "Single Reaction",
         "Multiple Reactions"
       ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/reactions/fetch-reactions#get-reaction-ids",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/reactions/fetch-reactions#get-reactions"
+      ],
       "snippets": [
         "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\nconst reaction = await api.blockchain.getReactionIdsByAccount(myAccount, ['1'])\nreturn reaction",
         "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\n\nconst substrate = await api.blockchain\nconst substrateApi = await api.blockchain.api\n\nconst tuples = [ '1', '2', '3' ].map(postId => [ myAccount, postId ])\n\nconst reactionIds = await substrateApi.query.reactions.postReactionIdByAccount.multi(tuples)\nconst reactions = await substrate.findReactions(reactionIds)\nreturn reactions"
+      ]
+    },
+    {
+      "key": "Follows",
+      "variants": [
+        "Account Following",
+        "Account Followers",
+        "Space Followers"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#accountsfollowedbyaccount",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#accountfollowers",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#spacefollowers"
+      ],
+      "snippets": [
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\n\nconst following = await substrateApi.query.accountFollows.accountsFollowedByAccount(accountId)\nreturn following",
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\n\nconst followers = await substrateApi.query.accountFollows.accountFollowers(accountId)\nreturn followers",
+        "const spaceId = '1'\nconst substrateApi = await api.blockchain.api\n\nconst followers = await substrateApi.query.spaceFollows.spaceFollowers(spaceId)\nreturn followers"
+      ]
+    },
+    {
+      "key": "Domains",
+      "variants": [
+        "By Owner",
+        "By Name",
+        "By Space"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/",
+        "https://docs.subsocial.network/docs/develop/",
+        "https://docs.subsocial.network/docs/develop/"
+      ],
+      "snippets": [
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst domains = await api.blockchain.domainsByOwner(accountId)\nreturn domains",
+        "const domainName = 'olehmell.sub'\nconst domainDetails = await api.blockchain.registeredDomain(domainName)\nreturn domainDetails",
+        "const accountId = '3osmnRNnrcScHsgkTJH1xyBF5kGjpbWHsGrqM31BJpy4vwn8'\nconst spaceId = '1'\n\nconst domain = await api.blockchain.domainNameBySpaceId(accountId, spaceId)\nreturn { domainName: domain }"
       ]
     }
   ],
@@ -60,6 +115,10 @@
       "variants": [
         "Create",
         "Update"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/spaces/create-spaces#create-a-space",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/spaces/create-spaces#update-a-space"
       ],
       "snippets": [
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS',\n  image: null,\n  name: 'Subsocial',\n  tags: [ 'subsocial' ]\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\nspaceTransaction.signAndSend(pair, logger)",
@@ -72,6 +131,11 @@
         "Regular",
         "Shared",
         "Update"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/posts/create-posts#a-regular-post",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/posts/create-posts#a-shared-post",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/posts/create-posts#update-a-post"
       ],
       "snippets": [
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  title: \"What is Subsocial?\",\n  image: null,\n  tags: [ 'Hello world', 'FAQ' ],\n  body: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS.'\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceId = '1' // The space in which you're posting.\nconst postTransaction = substrateApi.tx.posts.createPost(\n  spaceId,\n  { RegularPost: null }, // Creates a regular post.\n  IpfsContent(cid)\n)\n\npostTransaction.signAndSend(pair, logger)",
@@ -86,6 +150,11 @@
         "Update",
         "Delete"
       ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/reactions/create-reactions#create-a-reaction",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/reactions/create-reactions#update-a-reaction",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/reactions/create-reactions#delete-a-reaction"
+      ],
       "snippets": [
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to react on.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.createPostReaction(postId, 'Upvote')\n\nreactionTx.signAndSend(pair, logger)",
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to update reaction on.\nconst reactionId = '2' // Reaction Id to update.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.updatePostReaction(postId, reactionId, 'Downvote')\n\nreactionTx.signAndSend(pair, logger)",
@@ -96,6 +165,9 @@
       "key": "Profile",
       "variants": [
         ""
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles"
       ],
       "snippets": [
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial official account.',\n  avatar: '',\n  name: 'Subsocial',\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\nawait spaceTransaction.signAndSend(pair, logger)\nconst profileTx = substrateApi.tx.profiles.setProfile(spaceId);\n\nprofileTx.signAndSend(pair, logger)"
@@ -109,6 +181,10 @@
         "Space Follower",
         "Account Follower"
       ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#isspacefollower",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#isaccountfollower"
+      ],
       "snippets": [
         "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst spaceId = '1'\n\nconst substrateApi = api.blockchain\nconst isFollower = await substrateApi.isSpaceFollower(accountId, spaceId)\nreturn {output: isFollower}",
         "const yourAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst otherAccountId = '5CohLWq2wXUF8s45YDoMPv5xpey7uc9KQx3CUXAFf6YM6Wxe'\n\nconst substrateApi = await api.blockchain\nconst isFollower = await substrateApi.isAccountFollower(yourAccountId, otherAccountId)\nreturn {output: isFollower}"
@@ -120,6 +196,10 @@
         "Space",
         "Account"
       ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/create-follow#follow-a-space",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/create-follow#follow-an-account"
+      ],
       "snippets": [
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.followSpace(spaceId)\ntx.signAndSend(pair, logger)",
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToFollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.followAccount(accountIdToFollow)\ntx.signAndSend(pair, logger)"
@@ -130,6 +210,10 @@
       "variants": [
         "Space",
         "Account"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/create-follow#unfollow-a-space",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/create-follow#unfollow-an-account"
       ],
       "snippets": [
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.unfollowSpace(spaceId)\ntx.signAndSend(pair, logger)",

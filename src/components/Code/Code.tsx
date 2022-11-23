@@ -4,8 +4,11 @@ import { PlayArrow } from "@mui/icons-material"
 import { Button, CircularProgress, Typography } from "@mui/material"
 import runPlayground from "../../playground"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { setFetchingResult, setResponse, setSnippet } from "../../redux/slice"
+import { setFetchingResult, setIsApiReady, setResponse } from "../../redux/slice"
 import dynamic from 'next/dynamic'
+import { generateCrustAuthToken, SubsocialApi } from "@subsocial/api"
+import config from "../../playground/config"
+import useNetworkManager from "../../networkManager"
 
 
 const CodeEditor = dynamic(import('./Editor'), { ssr: false })
@@ -29,10 +32,28 @@ const RunButton = ({ runCode }: RunCodeProps) => {
 
 const CodeWindow = () => {
   const dispatch = useAppDispatch()
+  const selectedNetwork = useAppSelector((state) => state.code.selectedNetwork)
+
+  const { api, isApiReady } = useNetworkManager()
 
   const runCode = async (code: string) => {
+    if (!isApiReady || api == undefined) return;
+
+    const selectedNetworkApi = api.get(selectedNetwork)
+
+    if (selectedNetworkApi == undefined) return;
+
+    console.log(selectedNetwork, selectedNetworkApi)
     dispatch(setFetchingResult(true))
-    const res = await runPlayground(code)
+    if (selectedNetwork === 'testnet') {
+      const authHeader = generateCrustAuthToken('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice');
+
+      selectedNetworkApi.ipfs.setWriteHeaders({
+        authorization: 'Basic ' + authHeader
+      })
+
+    }
+    const res = await runPlayground(code, selectedNetworkApi)
     dispatch(setResponse(res))
     dispatch(setFetchingResult(false))
   }

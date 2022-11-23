@@ -9,13 +9,13 @@
 .side-item {
   cursor: pointer;
   display: flex;
-  font-size: 1rem;
+  font-size: 14px;
   padding-left: 10px;
   border-radius: 0.5rem;
   color: #f759ab;
   height: 2.5rem;
   align-items: center;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 4px;
 }
 

@@ -2,7 +2,7 @@ export type envType = 'testnet' | 'mainnet' | 'localnet' | string
 
 // Testnet configuration for the playground.
 // This connects with SoonSocialX testnet.
-const testnet = {
+export const testnet = {
   substrateNodeUrl: 'wss://rco-para.subsocial.network',
   ipfsNodeUrl: 'https://crustwebsites.net'
 }
@@ -10,15 +10,14 @@ const testnet = {
 // Mainnet configuration for the playground.
 // This connects with SubSocial parachain.
 // This is the default configuration
-const mainnet = {
+export const mainnet = {
   substrateNodeUrl: 'wss://para.f3joule.space',
-  ipfsNodeUrl: 'https://app.subsocial.network/ipfs',
+  ipfsNodeUrl: 'https://ipfs.subsocial.network',
   useServer: {
     httpRequestMethod: 'get'
   }
 
 }
-
 // Localnet configuration for the playground.
 // This allows you to connect to a local node.
 // You need to run the local nodes of subsocial, ipfs & offchain.
@@ -26,15 +25,20 @@ const mainnet = {
 // Subsocial Node: https://github.com/dappforce/subsocial-node
 // Offchain Node: https://github.com/dappforce/subsocial-offchain
 // IPFS Node: https://ipfs.io/#install
-const localnet = {
+export const localnet = {
   substrateNodeUrl: 'http://127.0.0.1:9944',
   offchainUrl: 'http://127.0.0.1:3001',
   ipfsNodeUrl: 'http://127.0.0.1:8080'
 }
 
+export const networks = {
+  mainnet,
+  testnet
+}
+
 // Sets the configuration for the playground according to the parameter.
 const config = (env: envType) => {
-  switch (env) {
+  switch (env.toLowerCase()) {
     case 'testnet':
       return testnet;
     case 'localnet':

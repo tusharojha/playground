@@ -16,7 +16,7 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({ title, sx, chil
   }
 
   return <div style={{ backgroundColor: '#000' }}>
-    <ListItemButton sx={{...sx, backgroundColor: '#000'}} onClick={handleClick}>
+    <ListItemButton key={title} sx={{ ...sx, backgroundColor: '#000' }} onClick={handleClick}>
       <ListItemText primary={title} />
       {open ? <ExpandLess /> : <ExpandMore />}
     </ListItemButton>

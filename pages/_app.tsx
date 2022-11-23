@@ -3,6 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../src/App.css'
 
 import '../src/components/Sidebar/sidebar.css'
+import '../src/components/Header/header.css'
 import "../src/components/Code/editor.css"
 import React from 'react'
 import { Provider } from 'react-redux';

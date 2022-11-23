@@ -80,7 +80,7 @@ const theme = createTheme({
           fontWeight: 500,
           marginBottom: '5px',
           ":hover": {
-            backgroundColor: 'rgba(144, 202, 249, 0.16)',
+            backgroundColor: '#1C252D',
             color: "#E89B25",
           }
         }),
