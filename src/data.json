@@ -94,15 +94,18 @@
       "key": "Domains",
       "variants": [
         "By Owner",
-        "By Name"
+        "By Name",
+        "By Space"
       ],
       "links": [
-        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#accountsfollowedbyaccount",
-        "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#accountfollowers"
+        "https://docs.subsocial.network/docs/develop/",
+        "https://docs.subsocial.network/docs/develop/",
+        "https://docs.subsocial.network/docs/develop/"
       ],
       "snippets": [
         "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst domains = await api.blockchain.domainsByOwner(accountId)\nreturn domains",
-        "const domainName = 'olehmell.sub'\nconst domainDetails = await api.blockchain.registeredDomain(domainName)\nreturn domainDetails"
+        "const domainName = 'olehmell.sub'\nconst domainDetails = await api.blockchain.registeredDomain(domainName)\nreturn domainDetails",
+        "const accountId = '3osmnRNnrcScHsgkTJH1xyBF5kGjpbWHsGrqM31BJpy4vwn8'\nconst spaceId = '1'\n\nconst domain = await api.blockchain.domainNameBySpaceId(accountId, spaceId)\nreturn { domainName: domain }"
       ]
     }
   ],
