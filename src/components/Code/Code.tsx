@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react"
-
 import { PlayArrow } from "@mui/icons-material"
 import { Button, CircularProgress, Typography } from "@mui/material"
 import runPlayground from "../../playground"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { setFetchingResult, setIsApiReady, setResponse } from "../../redux/slice"
+import { setFetchingResult, setResponse } from "../../redux/slice"
 import dynamic from 'next/dynamic'
-import { generateCrustAuthToken, SubsocialApi } from "@subsocial/api"
-import config from "../../playground/config"
 import useNetworkManager from "../../networkManager"
+import {testAuthKeyForCrust} from "../../constants";
 
 
 const CodeEditor = dynamic(import('./Editor'), { ssr: false })
@@ -46,10 +43,8 @@ const CodeWindow = () => {
     console.log(selectedNetwork, selectedNetworkApi)
     dispatch(setFetchingResult(true))
     if (selectedNetwork === 'testnet') {
-      const authHeader = generateCrustAuthToken('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice');
-
       selectedNetworkApi.ipfs.setWriteHeaders({
-        authorization: 'Basic ' + authHeader
+        authorization: 'Basic ' + testAuthKeyForCrust
       })
 
     }
