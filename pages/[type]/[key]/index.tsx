@@ -5,9 +5,9 @@ import { parseKey } from "../../../src/utils";
 
 const dataKeys = Object.keys(data) ?? [];
 
-const RoutePage = ({ parsedData }: { parsedData: any }) => {
+const RoutePage = ({ parsedData, iframe }: { parsedData: any, iframe: any }) => {
   return (
-    <PlaygroundApp pageData={parsedData} />
+    <PlaygroundApp iframe={iframe} pageData={parsedData} />
   );
 }
 
@@ -28,13 +28,14 @@ function parseQuery(type: string, key: string): object | null {
 }
 
 export const getServerSideProps = async (context: any) => {
-  const { type, key } = context.query
+  const { type, key, iframe } = context.query
 
   const parsedData = parseQuery(type, key)
 
   return {
     props: {
-      parsedData: parsedData
+      parsedData: parsedData,
+      iframe: iframe ?? false
     }
   }
 }

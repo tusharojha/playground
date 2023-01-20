@@ -14,7 +14,8 @@ const NETWORK_KEY = "SELECTED_NETWORK"
 const LEARN_MORE_LINK = "https://docs.subsocial.network/docs/develop/playground"
 
 type HeaderProps = {
-  toggleDrawer: () => void
+  toggleDrawer: () => void,
+  iframe?: boolean
 }
 
 const Header = (props: HeaderProps) => {
@@ -41,6 +42,10 @@ const Header = (props: HeaderProps) => {
     handleClose()
   }
 
+  const openPlayground = () => {
+    window.open(window.location.href.split('?')[0])
+  }
+
   const onOpenDocsTap = () => {
     const itemIndex = repo[selectedItem.globalKey].findIndex((i: any) => i["key"] === selectedItem.key)
     if (itemIndex === -1) return;
@@ -59,26 +64,29 @@ const Header = (props: HeaderProps) => {
       <title>Subsocial Playground</title>
     </Head>
     <Toolbar>
-      <IconButton
-        onClick={toggleDrawer}
-        size="large"
-        edge="start"
-        color="inherit"
-        aria-label="menu"
-        sx={{ mr: 1 }}
-      >
-        <MenuIcon />
-      </IconButton>
+      {props.iframe ?
+        <></> :
+        <IconButton
+          onClick={toggleDrawer}
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 1 }}
+        >
+          <MenuIcon />
+        </IconButton>}
       <Image
         width={180}
         height={30}
         alt="playground"
         className='logo'
         src={`/playground.svg`} />
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: 4 }}>
-        {selectedItem.globalKey !== '' ? `${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}` : ''}
-        <Button onClick={onOpenDocsTap} style={{ marginLeft: 10, justifyContent: 'flex-start' }}>Open Docs<OpenInNewRounded fontSize="small" style={{ marginLeft: 10 }} /></Button>
-      </Typography>
+      {props.iframe ? <div style={{ flexGrow: 1 }}></div> :
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: 4 }}>
+          {selectedItem.globalKey !== '' ? `${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}` : ''}
+          <Button onClick={onOpenDocsTap} style={{ marginLeft: 10, justifyContent: 'flex-start' }}>Open Docs<OpenInNewRounded fontSize="small" style={{ marginLeft: 10 }} /></Button>
+        </Typography>}
 
       <Button style={{ marginRight: 16, fontSize: '14px' }}
         aria-controls={open ? 'basic-menu' : undefined}
@@ -106,7 +114,11 @@ const Header = (props: HeaderProps) => {
           })}
         </div>
       </Menu>
-      <Button onClick={() => window.open(LEARN_MORE_LINK, "_blank")} variant="contained" color="info"><InfoOutlined fontSize="small" style={{ marginRight: 10 }} />About App</Button>
+
+      {props.iframe ?
+        <Button onClick={openPlayground} style={{ marginLeft: 10, justifyContent: 'flex-start' }}>Open App<OpenInNewRounded fontSize="small" style={{ marginLeft: 10 }} /></Button> :
+        <Button onClick={() => window.open(LEARN_MORE_LINK, "_blank")} variant="contained" color="info"><InfoOutlined fontSize="small" style={{ marginRight: 10 }} />About App</Button>}
+
     </Toolbar>
   </AppBar>
 }
