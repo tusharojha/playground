@@ -69,7 +69,7 @@
       ],
       "snippets": [
         "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\nconst reactionId = await api.blockchain.getPostReactionIdByAccount(myAccount, '1')\nconst reaction = await api.blockchain.findReaction(reactionId)\nreturn reaction",
-        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\n\nconst substrate = await api.blockchain\nconst substrateApi = await api.blockchain.api\n\nconst tuples = [ '1', '2', '3' ].map(postId => [ myAccount, postId ])\n\nconst reactionIds = await substrateApi.query.reactions.postReactionIdByAccount.multi(tuples)\nconst reactions = await substrate.findReactions(reactionIds)\nreturn reactions"
+        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\n\nconst postIds = ['1', '2', '3']\n\nconst reactionIds = await api.blockchain.getPostReactionIdsByAccount(myAccount, postIds)\n// invalid ids are not included in the result\nconst reactions = await api.blockchain.findReactions(reactionIds)\n\nconst postToReactionMap = {}\npostIds.forEach((id, idx) => {\n    const reactionId = reactionIds[idx]\n    const reaction = reactions.find((reaction) => reaction.id.toString() === reactionId.toString())\n    postToReactionMap[id] = reaction || null\n})\n\nreturn postToReactionMap"
       ]
     },
     {
