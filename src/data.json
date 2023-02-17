@@ -12,7 +12,7 @@
       ],
       "snippets": [
         "const spaceId = 1\nconst space = await api.findSpace({id: spaceId})\nreturn space",
-        "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await api.blockchain.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await api.base.findSpaces({ids: spaceIds})\nreturn spaces"
+        "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await api.blockchain.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await api.findSpaces({ids: spaceIds})\nreturn spaces"
       ]
     },
     {
@@ -27,7 +27,7 @@
       ],
       "snippets": [
         "const postId = 1 // Any post Id that you want to fetch.\nconst post = await api.findPost({id: postId})\nreturn post",
-        "const spaceId = 1\nconst postIds = await api.blockchain.postIdsBySpaceId(spaceId)\n\nconst posts = await api.base.findPosts({ids: postIds})\nreturn posts"
+        "const spaceId = 1\nconst postIds = await api.blockchain.postIdsBySpaceId(spaceId)\n\nconst posts = await api.findPosts({ids: postIds})\nreturn posts"
       ]
     },
     {
@@ -41,8 +41,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/fetch-profiles#find-and-load-a-single-profile"
       ],
       "snippets": [
-        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Any account address.\nconst profile = await api.base.findProfileSpace(accountId)\nreturn profile",
-        "const accountIds = ['5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs', '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud']\nconst profiles = await api.base.findProfileSpaces(accountIds)\nreturn profiles"
+        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Any account address.\nconst profile = await api.findProfileSpace(accountId)\nreturn profile",
+        "const accountIds = ['5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs', '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud']\nconst profiles = await api.findProfileSpaces(accountIds)\nreturn profiles"
       ]
     },
     {

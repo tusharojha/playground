@@ -10,12 +10,11 @@
     "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.10.2",
     "@mui/material": "^5.10.1",
-    "@polkadot/api": "latest",
     "@polkadot/extension-dapp": "^0.44.6",
-    "@polkadot/types": "latest",
+    "@polkadot/wasm-crypto": "^6.4.1",
     "@reduxjs/toolkit": "^1.8.5",
-    "@subsocial/api": "0.7.5",
-    "@subsocial/utils": "0.7.5",
+    "@subsocial/api": "^0.7.13",
+    "@subsocial/utils": "^0.7.13",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
@@ -46,7 +45,7 @@
     "typescript": "^4.7.2",
     "web-vitals": "^2.1.4"
   },
-  "scripts": { 
+  "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "dev": "next dev",
@@ -76,9 +75,5 @@
   },
   "devDependencies": {
     "gh-pages": "^4.0.0"
-  },
-  "resolutions": {
-    "@polkadot/api": "9.2.4",
-    "@polkadot/types": "9.2.4"
   }
 }
