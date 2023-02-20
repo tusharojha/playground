@@ -11,8 +11,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/spaces/fetch-spaces#find-and-load-space-ids-by-owner"
       ],
       "snippets": [
-        "const spaceId = 1\nconst space = await api.findSpace({id: spaceId})\nreturn space",
-        "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await api.blockchain.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await api.base.findSpaces({ids: spaceIds})\nreturn spaces"
+        "const spaceId = '1'\nconst space = await api.findSpace({id: spaceId})\nreturn space",
+        "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await api.blockchain.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await api.findSpaces({ids: spaceIds})\nreturn spaces"
       ]
     },
     {
@@ -26,8 +26,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/posts/fetch-posts#find-and-load-post-ids-by-space-id"
       ],
       "snippets": [
-        "const postId = 1 // Any post Id that you want to fetch.\nconst post = await api.findPost({id: postId})\nreturn post",
-        "const spaceId = 1\nconst postIds = await api.blockchain.postIdsBySpaceId(spaceId)\n\nconst posts = await api.base.findPosts({ids: postIds})\nreturn posts"
+        "const postId = '1' // Any post Id that you want to fetch.\nconst post = await api.findPost({id: postId})\nreturn post",
+        "const spaceId = '1068'\nconst postIds = await api.blockchain.postIdsBySpaceId(spaceId)\n\nconst posts = await api.findPosts({ids: postIds})\nreturn posts"
       ]
     },
     {
@@ -41,8 +41,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/fetch-profiles#find-and-load-a-single-profile"
       ],
       "snippets": [
-        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Any account address.\nconst profile = await api.base.findProfileSpace(accountId)\nreturn profile",
-        "const accountIds = ['5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs', '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud']\nconst profiles = await api.base.findProfileSpaces(accountIds)\nreturn profiles"
+        "const accountId = '3tcZkDwdQ3dR3PMgrn8rSXBfUcZJkwmtDPvzoV3sqApSHqBw' // Any account address.\nconst profile = await api.findProfileSpace(accountId)\nreturn profile",
+        "const accountIds = ['3tcZkDwdQ3dR3PMgrn8rSXBfUcZJkwmtDPvzoV3sqApSHqBw', '3rJriA6MiYj7oFXv5hgxvSuacenm8fk76Kb5TEEHcWWQVvii']\nconst profiles = await api.findProfileSpaces(accountIds)\nreturn profiles"
       ]
     },
     {
@@ -54,7 +54,7 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/comments/fetch-comments"
       ],
       "snippets": [
-        "const substrate = api.blockchain\nconst postId = '1'\n\n// Get reply ids (comments) by parent post id and fetch posts by ids\nconst replyIds = await substrate.getReplyIdsByPostId(idToBn(postId))\n\n// For getting comments use posts functions\nconst replies = await api.findPublicPosts(replyIds)\n return replies"
+        "const postId = '104'\n\n// Get reply ids (comments) by parent post id and fetch posts by ids\nconst replyIds = await api.blockchain.getReplyIdsByPostId(idToBn(postId))\n\n// For getting comments use posts functions\nconst replies = await api.findPublicPosts(replyIds)\n return replies"
       ]
     },
     {
@@ -68,8 +68,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/reactions/fetch-reactions#get-reactions"
       ],
       "snippets": [
-        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\nconst reaction = await api.blockchain.getReactionIdsByAccount(myAccount, ['1'])\nreturn reaction",
-        "const myAccount = '12hAtDZJGt4of3m2GqZcUCVAjZPALfvPwvtUTFZPQUbdX1Ud'\n\nconst substrate = await api.blockchain\nconst substrateApi = await api.blockchain.api\n\nconst tuples = [ '1', '2', '3' ].map(postId => [ myAccount, postId ])\n\nconst reactionIds = await substrateApi.query.reactions.postReactionIdByAccount.multi(tuples)\nconst reactions = await substrate.findReactions(reactionIds)\nreturn reactions"
+        "const myAccount = '3rJriA6MiYj7oFXv5hgxvSuacenm8fk76Kb5TEEHcWWQVvii'\nconst postId = '104'\nconst reactionId = await api.blockchain.getPostReactionIdByAccount(myAccount, postId)\nconst reaction = await api.blockchain.findReaction(reactionId)\nreturn reaction",
+        "const myAccount = '3sPZhdg9FWo88ALqT8fj6esXGZCvukCQv6WAmWGkTdetWozN'\n\nconst postIds = ['153', '150', '189']\n\nconst reactionIds = await api.blockchain.getPostReactionIdsByAccount(myAccount, postIds)\n// invalid ids are not included in the result\nconst reactions = await api.blockchain.findReactions(reactionIds)\n\nconst postToReactionMap = {}\npostIds.forEach((id, idx) => {\n    const reactionId = reactionIds[idx]\n    const reaction = reactions.find((reaction) => reaction.id.toString() === reactionId.toString())\n    postToReactionMap[id] = reaction || null\n})\n\nreturn postToReactionMap"
       ]
     },
     {
@@ -85,8 +85,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/follow/fetch-follow#spacefollowers"
       ],
       "snippets": [
-        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\n\nconst following = await substrateApi.query.accountFollows.accountsFollowedByAccount(accountId)\nreturn following",
-        "const accountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\n\nconst followers = await substrateApi.query.accountFollows.accountFollowers(accountId)\nreturn followers",
+        "const accountId = '5FL6L3g16cyHz5CQmA1JD4dXfSnsuEZPjVLv4oEW6UqESNh3'\nconst substrateApi = await api.blockchain.api\n\n// count only\nlet followingCount = (await api.blockchain.accountsFollowedCountByAccount(accountId)).toString()\n\n// following account addresses\nconst following = await substrateApi.query.accountFollows.accountsFollowedByAccount(accountId)\nreturn { followingCount, following }",
+        "const accountId = '5EZVynPKXVgRW3pgmB5whqoFwEa94USMVyh68DexVJMNyR3p'\nconst substrateApi = await api.blockchain.api\n\n// count only\nlet followersCount = (await api.blockchain.accountFollowersCountByAccountId(accountId)).toString()\n\n// follower account addresses\nconst followers = await substrateApi.query.accountFollows.accountFollowers(accountId)\nreturn { followersCount, followers }",
         "const spaceId = '1'\nconst substrateApi = await api.blockchain.api\n\nconst followers = await substrateApi.query.spaceFollows.spaceFollowers(spaceId)\nreturn followers"
       ]
     },
