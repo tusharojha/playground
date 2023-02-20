@@ -54,7 +54,7 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/comments/fetch-comments"
       ],
       "snippets": [
-        "const substrate = api.blockchain\nconst postId = '104'\n\n// Get reply ids (comments) by parent post id and fetch posts by ids\nconst replyIds = await substrate.getReplyIdsByPostId(idToBn(postId))\n\n// For getting comments use posts functions\nconst replies = await api.findPublicPosts(replyIds)\n return replies"
+        "const postId = '104'\n\n// Get reply ids (comments) by parent post id and fetch posts by ids\nconst replyIds = await api.blockchain.getReplyIdsByPostId(idToBn(postId))\n\n// For getting comments use posts functions\nconst replies = await api.findPublicPosts(replyIds)\n return replies"
       ]
     },
     {
