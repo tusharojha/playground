@@ -6,6 +6,7 @@ import { idToBn } from "@subsocial/utils"
 import { toast } from "react-toastify"
 import { generateCrustAuthToken } from '@subsocial/api/utils/ipfs'
 import { waitReady } from '@polkadot/wasm-crypto'
+import { convertToBalanceWithDecimal, balanceWithDecimal } from '@subsocial/utils'
 
 const showToast = (message: string) => {
   toast(message, {
@@ -98,9 +99,11 @@ const playground = async (codeSnippet: string, api: SubsocialApi | undefined) =>
     let response: any
 
     const f = new Function("api", "idToBn", "signAndSendTx",
-      "IpfsContent", "keyring", "logger", "ipfs", "showToast", data)
-    response = await f(api, idToBn, signAndSendTx, IpfsContent, keyring, logger, api!.ipfs, showToast)
+      "IpfsContent", "keyring", "logger", "ipfs", "showToast",
+      "convertToBalanceWithDecimal", "balanceWithDecimal", data)
+    response = await f(api, idToBn, signAndSendTx, IpfsContent, keyring, logger, api!.ipfs, showToast, convertToBalanceWithDecimal, balanceWithDecimal)
     console.log('response', response);
+    // (await api?.blockchain.api)?.query.energy.energyBalance()
     // The response object returned will be printed on the screen.
     return response;
   } catch (e) {
