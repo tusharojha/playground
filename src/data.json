@@ -11,7 +11,7 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/spaces/fetch-spaces#find-and-load-space-ids-by-owner"
       ],
       "snippets": [
-        "const spaceId = '1'\nconst space = await api.findSpace({id: spaceId})\nreturn space",
+        "const spaceId = '1058'\nconst space = await api.findSpace({id: spaceId})\nreturn space",
         "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await api.blockchain.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await api.findSpaces({ids: spaceIds})\nreturn spaces"
       ]
     },
@@ -121,8 +121,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/spaces/create-spaces#update-a-space"
       ],
       "snippets": [
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS',\n  image: null,\n  name: 'Subsocial',\n  tags: [ 'subsocial' ]\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\nspaceTransaction.signAndSend(pair, logger)",
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst update = {\n  content: {\n    about: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS'\n  }\n}\n\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.updateSpace(\n spaceId, update)\n\nspaceTransaction.signAndSend(pair, logger)"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS',\n  image: null,\n  name: 'Subsocial',\n  tags: [ 'subsocial' ]\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\nspaceTransaction.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1058'\nconst content = {\n    about: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS'\n  }\n const cid = await api.ipfs.saveContent(content)\n\nconst update = {\n  content: IpfsContent(cid)\n}\n\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.updateSpace(\n spaceId, update)\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\nspaceTransaction.signAndSend(pair, logger)"
       ]
     },
     {
@@ -138,9 +138,9 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/posts/create-posts#update-a-post"
       ],
       "snippets": [
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  title: \"What is Subsocial?\",\n  image: null,\n  tags: [ 'Hello world', 'FAQ' ],\n  body: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS.'\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceId = '1' // The space in which you're posting.\nconst postTransaction = substrateApi.tx.posts.createPost(\n  spaceId,\n  { RegularPost: null }, // Creates a regular post.\n  IpfsContent(cid)\n)\n\npostTransaction.signAndSend(pair, logger)",
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1' // The space in which you're posting.\nconst parentPostId = '2' // The original post you want to share.\n\n// Creating new sharedPostCid having shared message.\nconst sharedPostCid = await ipfs.saveContent({\n  body: 'Keep up the good work!'\n})\n\nconst substrateApi = await api.blockchain.api\nconst postTransaction = substrateApi.tx.posts.createPost(\n  spaceId, \n  { SharedPost: parentPostId }, // Creates a shared post.\n  IpfsContent(sharedPostCid)) \n\npostTransaction.signAndSend(pair, logger)",
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '7' // Id of post which you want to update.\nconst substrateApi = await api.blockchain.api\n\nconst update = {\n  content: { title: \"What is Subsocial Parachain?\" }\n}\n\nconst postTransaction = substrateApi.tx.spaces.posts.updatePost(postId, update)\n\npostTransaction.signAndSend(pair, logger)"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  title: \"What is Subsocial?\",\n  image: null,\n  tags: [ 'Hello world', 'FAQ' ],\n  body: 'Subsocial is an open protocol for decentralized social networks and marketplaces. It`s built with Substrate and IPFS.'\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceId = '1' // The space in which you're posting.\nconst postTransaction = substrateApi.tx.posts.createPost(\n  spaceId,\n  { RegularPost: null }, // Creates a regular post.\n  IpfsContent(cid)\n)\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\npostTransaction.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1' // The space in which you're posting.\nconst parentPostId = '2' // The original post you want to share.\n\n// Creating new sharedPostCid having shared message.\nconst sharedPostCid = await ipfs.saveContent({\n  body: 'Keep up the good work!'\n})\n\nconst substrateApi = await api.blockchain.api\nconst postTransaction = substrateApi.tx.posts.createPost(\n  spaceId, \n  { SharedPost: parentPostId }, // Creates a shared post.\n  IpfsContent(sharedPostCid)) \n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\npostTransaction.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '7' // Id of post which you want to update.\nconst substrateApi = await api.blockchain.api\n\nconst content = { title: \"What is Subsocial Parachain?\" }\nconst cid = await api.ipfs.saveContent(content)\n\nconst update = {\n\tcontent: IpfsContent(cid)\n}\n\n const postTransaction = substrateApi.tx.posts.updatePost(postId, update)\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\npostTransaction.signAndSend(pair, logger)"
       ]
     },
     {
@@ -156,9 +156,9 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/reactions/create-reactions#delete-a-reaction"
       ],
       "snippets": [
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to react on.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.createPostReaction(postId, 'Upvote')\n\nreactionTx.signAndSend(pair, logger)",
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to update reaction on.\nconst reactionId = '2' // Reaction Id to update.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.updatePostReaction(postId, reactionId, 'Downvote')\n\nreactionTx.signAndSend(pair, logger)",
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id on which reaction you want to delete reaction.\nconst reactionId = '2' // Reaction Id to delete.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.deletePostReaction(postId, reactionId)\n\nreactionTx.signAndSend(pair, logger)"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to react on.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.createPostReaction(postId, 'Upvote')\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\nreactionTx.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id you want to update reaction on.\nconst reactionId = '2' // Reaction Id to update.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.updatePostReaction(postId, reactionId, 'Downvote')\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\nreactionTx.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst postId = '1' // Post Id on which reaction you want to delete reaction.\nconst reactionId = '2' // Reaction Id to delete.\nconst substrateApi = await api.blockchain.api\n\nconst reactionTx = substrateApi.tx.reactions.deletePostReaction(postId, reactionId)\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\nreactionTx.signAndSend(pair, logger)"
       ]
     },
     {
@@ -170,7 +170,7 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles"
       ],
       "snippets": [
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial official account.',\n  avatar: '',\n  name: 'Subsocial',\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\nawait spaceTransaction.signAndSend(pair, logger)\nconst profileTx = substrateApi.tx.profiles.setProfile(spaceId);\n\nprofileTx.signAndSend(pair, logger)"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial official account.',\n  avatar: '',\n  name: 'Subsocial',\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\nawait spaceTransaction.signAndSend(pair, logger)\nconst profileTx = substrateApi.tx.profiles.setProfile(spaceId);\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\nprofileTx.signAndSend(pair, logger)"
       ]
     }
   ],
@@ -184,7 +184,7 @@
         "https://docs.subsocial.network/docs/develop/sdk/energy"
       ],
       "snippets": [
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst targetAddress = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY' // You can change it to any other account address.\n\nconst burnAmount = 1 // 1 SUB\n\nconst parsedBurnAmount = balanceWithDecimal(burnAmount, 12) // SUB token uses 10 decimals points, SOON (testnet) uses 12 decimals\n\n// or you can just multiply it manually\n// const parsedBurnAmount = burnAmount * 10 ** 12\n\nconst substrateApi = await api.blockchain.api\n\nconst tx = substrateApi.tx.energy.generateEnergy(targetAddress, parsedBurnAmount.toString())\n\ntx.signAndSend(pair, logger)"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst targetAddress = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY' // You can change it to any other account address.\n\nconst burnAmount = 1 // 1 SUB\n\nconst parsedBurnAmount = balanceWithDecimal(burnAmount, 12) // SUB token uses 10 decimals points, SOON (testnet) uses 12 decimals\n\n// or you can just multiply it manually\n// const parsedBurnAmount = burnAmount * 10 ** 12\n\nconst substrateApi = await api.blockchain.api\n\nconst tx = substrateApi.tx.energy.generateEnergy(targetAddress, parsedBurnAmount.toString())\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\ntx.signAndSend(pair, logger)"
       ]
     },
     {
@@ -227,8 +227,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/follow/create-follow#follow-an-account"
       ],
       "snippets": [
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.followSpace(spaceId)\ntx.signAndSend(pair, logger)",
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToFollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.followAccount(accountIdToFollow)\ntx.signAndSend(pair, logger)"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.followSpace(spaceId)\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\ntx.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToFollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.followAccount(accountIdToFollow)\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\ntx.signAndSend(pair, logger)"
       ]
     },
     {
@@ -242,8 +242,8 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/follow/create-follow#unfollow-an-account"
       ],
       "snippets": [
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.unfollowSpace(spaceId)\ntx.signAndSend(pair, logger)",
-        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToUnfollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.unfollowAccount(accountIdToUnfollow)\ntx.signAndSend(pair, logger)"
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.spaceFollows.unfollowSpace(spaceId)\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\ntx.signAndSend(pair, logger)",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst accountIdToUnfollow = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\nconst substrateApi = await api.blockchain.api\nconst tx = substrateApi.tx.accountFollows.unfollowAccount(accountIdToUnfollow)\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\ntx.signAndSend(pair, logger)"
       ]
     }
   ]

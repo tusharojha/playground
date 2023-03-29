@@ -57,7 +57,6 @@ const CodeEditor = ({ runCode }: RunCodeProps) => {
       },
       exec: (editor) => runCode(editor.getValue())
     }]}
-    enableSnippets
     editorProps={{ $blockScrolling: true }}
   />
 }

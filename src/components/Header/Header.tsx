@@ -85,7 +85,7 @@ const Header = (props: HeaderProps) => {
       {props.iframe ? <div style={{ flexGrow: 1 }}></div> :
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: 4 }}>
           {selectedItem.globalKey !== '' ? `${selectedItem.globalKey}: ${selectedItem.key} ${selectedItem.variants[selectedItem.index]}` : ''}
-          <Button onClick={onOpenDocsTap} style={{ marginLeft: 10, justifyContent: 'flex-start' }}>Open Docs<OpenInNewRounded fontSize="small" style={{ marginLeft: 10 }} /></Button>
+          <Button onClick={onOpenDocsTap} style={{ marginLeft: 10, justifyContent: 'flex-start' }}>Open in Docs<OpenInNewRounded fontSize="small" style={{ marginLeft: 10 }} /></Button>
         </Typography>}
 
       <Button style={{ marginRight: 16, fontSize: '14px' }}
