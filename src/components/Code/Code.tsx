@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { setFetchingResult, setResponse } from "../../redux/slice"
 import dynamic from 'next/dynamic'
 import useNetworkManager from "../../networkManager"
-import {testAuthKeyForCrust} from "../../constants";
+import { testAuthKeyForCrust } from "../../constants"
 
 
 const CodeEditor = dynamic(import('./Editor'), { ssr: false })
@@ -30,8 +30,11 @@ const RunButton = ({ runCode }: RunCodeProps) => {
 const CodeWindow = () => {
   const dispatch = useAppDispatch()
   const selectedNetwork = useAppSelector((state) => state.code.selectedNetwork)
-
   const { api, isApiReady } = useNetworkManager()
+
+  const logToResponseWindow = (log: any) => {
+     dispatch(setResponse(log))
+  }
 
   const runCode = async (code: string) => {
     if (!isApiReady || api == undefined) return;
@@ -48,7 +51,7 @@ const CodeWindow = () => {
       })
 
     }
-    const res = await runPlayground(code, selectedNetworkApi)
+    const res = await runPlayground(code, selectedNetworkApi, logToResponseWindow)
     dispatch(setResponse(res))
     dispatch(setFetchingResult(false))
   }
