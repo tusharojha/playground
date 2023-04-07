@@ -1,10 +1,9 @@
 import { getNewIdsFromEvent, SubsocialApi } from "@subsocial/api"
 import { Keyring } from "@polkadot/api"
 import { IpfsContent } from '@subsocial/api/substrate/wrappers'
-import { idToBn } from "@subsocial/utils"
 import { toast } from "react-toastify"
 import { waitReady } from '@polkadot/wasm-crypto'
-import { convertToBalanceWithDecimal, balanceWithDecimal } from '@subsocial/utils'
+import { convertToBalanceWithDecimal, balanceWithDecimal, idToBn } from '@subsocial/utils'
 
 const showToast = (message: string) => {
   toast(message, {
@@ -30,8 +29,6 @@ const logger = (result: any, logToResponseWindow: (t: any) => void) => {
     const blockHash = status.isFinalized
       ? status.asFinalized
       : status.asInBlock;
-    console.log('✅ Tx finalized. Block hash', blockHash.toString());
-    // showToast(`✅ Transaction: ${status.isFinalized ? 'Finalised' : 'Added in Block'}`);
     logToResponseWindow({ status: `✅ Transaction: ${status.isFinalized ? 'Finalised' : 'Added in Block'}`, blockHash: blockHash.toString() })
     const newIds = getNewIdsFromEvent(result); // get first argument from array.
     if (newIds.length > 0) {
@@ -40,11 +37,8 @@ const logger = (result: any, logToResponseWindow: (t: any) => void) => {
     }
   } else if (result.isError) {
     console.log(JSON.stringify(result));
-    // showToast(JSON.stringify(result));
     logToResponseWindow({ status: "error", error: result })
   } else {
-    console.log('⏱ Current tx status:', status.type);
-    // showToast(`⏱ Current tx status: ${status.type}`);
     logToResponseWindow({ status: status.type })
   }
 }

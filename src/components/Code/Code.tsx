@@ -33,7 +33,10 @@ const CodeWindow = () => {
   const { api, isApiReady } = useNetworkManager()
 
   const logToResponseWindow = (log: any) => {
-     dispatch(setResponse(log))
+    const status = log.status ?? ''
+    const progressStatus = log.id != null || status.includes("Finalised")
+    dispatch(setFetchingResult(!progressStatus))
+    dispatch(setResponse(log))
   }
 
   const runCode = async (code: string) => {
