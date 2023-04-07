@@ -32,7 +32,6 @@ const logger = (result: any, logToResponseWindow: (t: any) => void) => {
     logToResponseWindow({ status: `✅ Transaction: ${status.isFinalized ? 'Finalised' : 'Added in Block'}`, blockHash: blockHash.toString() })
     const newIds = getNewIdsFromEvent(result); // get first argument from array.
     if (newIds.length > 0) {
-      // showToast(`⚡️ New Item Id: ${newIds[0]}`)
       logToResponseWindow({ status: "Item Added", id: newIds[0].toNumber() })
     }
   } else if (result.isError) {
@@ -98,9 +97,22 @@ const playground = async (codeSnippet: string, api: SubsocialApi | undefined, lo
     const f = new Function("api", "idToBn", "signAndSendTx",
       "IpfsContent", "keyring", "logger", "ipfs", "showToast",
       "convertToBalanceWithDecimal", "balanceWithDecimal", data)
-    response = await f(api, idToBn, (tx: any, accountId: string) => { signAndSendTx(tx, accountId, logToResponseWindow) }, IpfsContent, keyring, (r: any) => { logger(r, logToResponseWindow) }, api!.ipfs, showToast, convertToBalanceWithDecimal, balanceWithDecimal)
-    console.log('response', response);
-    // (await api?.blockchain.api)?.query.energy.energyBalance()
+    response = await f(
+      api,
+      idToBn,
+      (tx: any, accountId: string) => {
+        signAndSendTx(tx, accountId, logToResponseWindow)
+      },
+      IpfsContent,
+      keyring,
+      (r: any) => {
+        logger(r, logToResponseWindow)
+      },
+      api!.ipfs,
+      showToast,
+      convertToBalanceWithDecimal,
+      balanceWithDecimal
+    )
     // The response object returned will be printed on the screen.
     return response;
   } catch (e) {
