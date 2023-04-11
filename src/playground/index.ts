@@ -1,12 +1,9 @@
 import { getNewIdsFromEvent, SubsocialApi } from "@subsocial/api"
 import { Keyring } from "@polkadot/api"
-import config, { testnet } from "./config"
 import { IpfsContent } from '@subsocial/api/substrate/wrappers'
-import { idToBn } from "@subsocial/utils"
 import { toast } from "react-toastify"
-import { generateCrustAuthToken } from '@subsocial/api/utils/ipfs'
 import { waitReady } from '@polkadot/wasm-crypto'
-import { convertToBalanceWithDecimal, balanceWithDecimal } from '@subsocial/utils'
+import { convertToBalanceWithDecimal, balanceWithDecimal, idToBn } from '@subsocial/utils'
 
 const showToast = (message: string) => {
   toast(message, {
@@ -21,7 +18,8 @@ const showToast = (message: string) => {
 }
 
 
-const logger = (result: any) => {
+const logger = (result: any, logToResponseWindow: (t: any) => void) => {
+
   const { status } = result
 
   if (!result || !status) {
@@ -31,22 +29,20 @@ const logger = (result: any) => {
     const blockHash = status.isFinalized
       ? status.asFinalized
       : status.asInBlock;
-    console.log('✅ Tx finalized. Block hash', blockHash.toString());
-    showToast(`✅ Transaction: ${status.isFinalized ? 'Finalised' : 'Added in Block'}`);
+    logToResponseWindow({ status: `✅ Transaction: ${status.isFinalized ? 'Finalised' : 'Added in Block'}`, blockHash: blockHash.toString() })
     const newIds = getNewIdsFromEvent(result); // get first argument from array.
     if (newIds.length > 0) {
-      showToast(`⚡️ New Item Id: ${newIds[0]}`)
+      logToResponseWindow({ status: "Item Added", id: newIds[0].toNumber() })
     }
   } else if (result.isError) {
     console.log(JSON.stringify(result));
-    showToast(JSON.stringify(result));
+    logToResponseWindow({ status: "error", error: result })
   } else {
-    console.log('⏱ Current tx status:', status.type);
-    showToast(`⏱ Current tx status: ${status.type}`);
+    logToResponseWindow({ status: status.type })
   }
 }
 
-const signAndSendTx = async (tx: any, accountId: string) => {
+const signAndSendTx = async (tx: any, accountId: string, logToResponseWindow: (t: any) => void) => {
   const { isWeb3Injected, web3Enable, web3AccountsSubscribe, web3FromAddress } = await import('@polkadot/extension-dapp')
   const injectedExtensions = await web3Enable('twitter-dapp-subsocial')
   if (!isWeb3Injected) {
@@ -71,12 +67,12 @@ const signAndSendTx = async (tx: any, accountId: string) => {
       const { signer } = await web3FromAddress(accountId)
       await tx.signAsync(accountId, { signer })
 
-      await tx.send(logger)
+      await tx.send((r: any) => { logger(r, logToResponseWindow) })
     }
   })
 }
 
-const playground = async (codeSnippet: string, api: SubsocialApi | undefined) => {
+const playground = async (codeSnippet: string, api: SubsocialApi | undefined, logToResponseWindow: (t: any) => void) => {
 
   await waitReady()
   const keyring = new Keyring({ type: 'sr25519' })
@@ -101,9 +97,22 @@ const playground = async (codeSnippet: string, api: SubsocialApi | undefined) =>
     const f = new Function("api", "idToBn", "signAndSendTx",
       "IpfsContent", "keyring", "logger", "ipfs", "showToast",
       "convertToBalanceWithDecimal", "balanceWithDecimal", data)
-    response = await f(api, idToBn, signAndSendTx, IpfsContent, keyring, logger, api!.ipfs, showToast, convertToBalanceWithDecimal, balanceWithDecimal)
-    console.log('response', response);
-    // (await api?.blockchain.api)?.query.energy.energyBalance()
+    response = await f(
+      api,
+      idToBn,
+      (tx: any, accountId: string) => {
+        signAndSendTx(tx, accountId, logToResponseWindow)
+      },
+      IpfsContent,
+      keyring,
+      (r: any) => {
+        logger(r, logToResponseWindow)
+      },
+      api!.ipfs,
+      showToast,
+      convertToBalanceWithDecimal,
+      balanceWithDecimal
+    )
     // The response object returned will be printed on the screen.
     return response;
   } catch (e) {
@@ -116,8 +125,8 @@ const playground = async (codeSnippet: string, api: SubsocialApi | undefined) =>
   }
 }
 
-const runPlayground = async (codeSnippet: string, api: SubsocialApi | undefined) => {
-  const response = await playground(codeSnippet, api)
+const runPlayground = async (codeSnippet: string, api: SubsocialApi | undefined, logToResponseWindow: (t: any) => void) => {
+  const response = await playground(codeSnippet, api, logToResponseWindow)
   return response;
 }
 
