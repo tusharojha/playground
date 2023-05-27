@@ -1,9 +1,9 @@
 export type envType = 'testnet' | 'mainnet' | 'localnet' | string
 
 // Testnet configuration for the playground.
-// This connects with SoonSocialX testnet.
+// This connects with xSocial testnet.
 export const testnet = {
-  substrateNodeUrl: 'wss://rco-para.subsocial.network',
+  substrateNodeUrl: 'wss://xsocial.subsocial.network',
   ipfsNodeUrl: 'https://gw.crustfiles.app'
 }
 
