@@ -46,9 +46,8 @@ const CodeWindow = () => {
 
     if (selectedNetworkApi == undefined) return;
 
-    console.log(selectedNetwork, selectedNetworkApi)
     dispatch(setFetchingResult(true))
-    if (selectedNetwork === 'testnet') {
+    if (selectedNetwork === 'testnet' || selectedNetwork === 'xsocial') {
       selectedNetworkApi.ipfs.setWriteHeaders({
         authorization: 'Basic ' + testAuthKeyForCrust
       })

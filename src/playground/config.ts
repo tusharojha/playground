@@ -1,8 +1,15 @@
 export type envType = 'testnet' | 'mainnet' | 'localnet' | string
 
 // Testnet configuration for the playground.
-// This connects with xSocial testnet.
+// This connects with SoonSocialX testnet.
 export const testnet = {
+  substrateNodeUrl: 'wss://rco-para.subsocial.network',
+  ipfsNodeUrl: 'https://gw.crustfiles.app'
+}
+
+// Testnet configuration for the playground.
+// This connects with xSocial testnet.
+export const xsocial = {
   substrateNodeUrl: 'wss://xsocial.subsocial.network',
   ipfsNodeUrl: 'https://gw.crustfiles.app'
 }
@@ -33,7 +40,8 @@ export const localnet = {
 
 export const networks = {
   mainnet,
-  testnet
+  testnet,
+  xsocial
 }
 
 // Sets the configuration for the playground according to the parameter.
@@ -41,6 +49,8 @@ const config = (env: envType) => {
   switch (env.toLowerCase()) {
     case 'testnet':
       return testnet;
+    case 'xsocial':
+      return xsocial;
     case 'localnet':
       return localnet;
     case 'mainnet':
