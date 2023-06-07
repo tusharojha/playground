@@ -107,6 +107,27 @@
         "const domainName = 'olehmell.sub'\nconst domainDetails = await api.blockchain.registeredDomain(domainName)\nreturn domainDetails",
         "const accountId = '3osmnRNnrcScHsgkTJH1xyBF5kGjpbWHsGrqM31BJpy4vwn8'\nconst spaceId = '1245'\n\nconst domain = await api.blockchain.domainNameBySpaceId(accountId, spaceId)\nreturn { domainName: domain }"
       ]
+    },
+    {
+      "key": "Roles",
+      "variants": [
+        "By Role Id",
+        "Users by Role Id",
+        "By Space Id",
+        "By User"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles"
+      ],
+      "snippets": [
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst roleId = '4'\n\nconst substrateApi = await api.substrateApi\n\nconst role = await substrateApi.query.roles.roleById(\n roleId \n)\nreturn role",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst roleId = '4'\n\nconst substrateApi = await api.substrateApi\n\nconst users = await substrateApi.query.roles.usersByRoleId(\n roleId \n)\nreturn users",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1005'\n\nconst substrateApi = await api.substrateApi\n\nconst roleIds = await substrateApi.query.roles.roleIdsBySpaceId(\n spaceId \n)\nreturn roleIds",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1005'\n\nconst user = {\n Account: '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs'\n}\n\nconst substrateApi = await api.substrateApi\n\nconst roleIds = await substrateApi.query.roles.roleIdsByUserInSpace(\n user,\n spaceId \n)\nreturn roleIds"
+      ]
     }
   ],
   "Writing Data": [
@@ -171,6 +192,24 @@
       ],
       "snippets": [
         "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst cid = await ipfs.saveContent({\n  about: 'Subsocial official account.',\n  avatar: '',\n  name: 'Subsocial',\n})\nconst substrateApi = await api.blockchain.api\n\nconst spaceTransaction = substrateApi.tx.spaces.createSpace(\n  IpfsContent(cid),\n  null // Permissions config (optional)\n)\nawait spaceTransaction.signAndSend(pair, logger)\nconst profileTx = substrateApi.tx.profiles.setProfile(spaceId);\n\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n\nprofileTx.signAndSend(pair, logger)"
+      ]
+    },
+    {
+      "key": "Roles",
+      "variants": [
+        "Create",
+        "Grant",
+        "Revoke"
+      ],
+      "links": [
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles",
+        "https://docs.subsocial.network/docs/develop/how-to-guides/profiles/create-profiles"
+      ],
+      "snippets": [
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst spaceId = '1005'\n\nconst substrateApi = await api.substrateApi\n\nconst roleTransaction = substrateApi.tx.roles.createRole(\n spaceId, \n null, // Time to Live. \n null, // Content: IPFS cid or any description about the role. \n ['CreatePosts', 'UpdateSpace', 'HideAnyComment'], // Permissions.\n)\nawait roleTransaction.signAndSend(pair, logger)\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst roleId = '4'\n\nconst users = [\n { Account: '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' }\n, { Space: '1' }\n] // List of users to grant the role.\n\nconst substrateApi = await api.substrateApi\n\nconst roleTransaction = substrateApi.tx.roles.grantRole(\n roleId, \n users \n)\nawait roleTransaction.signAndSend(pair, logger)\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n",
+        "const pair = keyring.addFromMnemonic('bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice')\n\nconst roleId = '4'\n\nconst users = [\n { Account: '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' }\n, { Space: '1' }\n] // List of users to grant the role.\n\nconst substrateApi = await api.substrateApi\n\nconst roleTransaction = substrateApi.tx.roles.revokeRole(\n roleId, \n users \n)\nawait roleTransaction.signAndSend(pair, logger)\n// Check logger function code here: https://docs.subsocial.network/docs/develop/playground/#using-keyring\n"
       ]
     }
   ],

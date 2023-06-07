@@ -32,7 +32,7 @@ const logger = (result: any, logToResponseWindow: (t: any) => void) => {
     logToResponseWindow({ status: `✅ Transaction: ${status.isFinalized ? 'Finalised' : 'Added in Block'}`, blockHash: blockHash.toString() })
     const newIds = getNewIdsFromEvent(result); // get first argument from array.
     if (newIds.length > 0) {
-      logToResponseWindow({ status: "Item Added", id: newIds[0].toNumber() })
+      logToResponseWindow({ status: "Item Added", id: newIds.map((i) => i.toNumber()) })
     }
   } else if (result.isError) {
     console.log(JSON.stringify(result));
