@@ -112,7 +112,7 @@
       "key": "Roles",
       "variants": [
         "By Role Id",
-        "Users by Role Id",
+        "Get Users",
         "By Space Id",
         "By User"
       ],
