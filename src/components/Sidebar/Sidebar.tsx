@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { drawerWidth, WRITING_KEYS } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setSelectedItem, setSnippet } from '../../redux/slice';
+import { addNewTab, setSelectedItem, setSelectedTab, setSnippet } from '../../redux/slice';
 import ExpandableListItem from './ExpandableListItem';
 import data from '../../data.json';
 
@@ -13,6 +13,7 @@ const Sidebar = () => {
 
   const router = useRouter();
   const dispatch = useAppDispatch()
+  const tabs = useAppSelector((state) => state.code.tabs)
   const selectedItem = useAppSelector((state) => state.code.selectedItem)
   const selectedNetwork = useAppSelector((state) => state.code.selectedNetwork)
 
@@ -20,6 +21,15 @@ const Sidebar = () => {
     const firstKey = dataKeys.length > 0 ? dataKeys[0] : ''
     const objectData = { ...(data as any)[firstKey][0], globalKey: firstKey, index: 0 }
     dispatch(setSelectedItem(objectData))
+
+    const index = Array.from(tabs.values()).findIndex((d) => d.code === objectData.snippets[objectData.index])
+
+    if (index != -1) {
+      dispatch(setSelectedTab(index))
+    } else {
+      dispatch(addNewTab({ code: objectData.snippets[objectData.index], result: {}, loading: false }))
+    }
+
     dispatch(setSnippet(objectData.snippets[objectData.index]))
   }, [])
 
