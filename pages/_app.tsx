@@ -9,12 +9,14 @@ import React from 'react'
 import { Provider } from 'react-redux';
 import { store } from '../src/redux/store';
 import { ThemeProvider } from '@mui/material';
+import { GoogleAnalytics } from "nextjs-google-analytics";
 import theme from '../src/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
+        <GoogleAnalytics gaMeasurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} strategy="lazyOnload" trackPageViews />
         <Component {...pageProps} />
       </ThemeProvider>
     </Provider>
