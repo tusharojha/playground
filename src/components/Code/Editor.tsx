@@ -1,10 +1,9 @@
 import { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import dynamic from 'next/dynamic'
 import AceEditor from 'react-ace';
-import brace from 'brace'
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
+
 import { setSnippet } from "../../redux/slice";
 
 type RunCodeProps = {
@@ -12,6 +11,7 @@ type RunCodeProps = {
 }
 
 const CodeEditor = ({ runCode }: RunCodeProps) => {
+
   const snippet = useAppSelector((state) => state.code.snippet)
   const dispatch = useAppDispatch()
   const [inFocus, setInFocus] = useState(false)

@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import theme from './theme'
 import { useAppDispatch, useAppSelector } from './redux/hooks'
-import { setSelectedItem, setSelectedNetwork, setSnippet } from './redux/slice'
+import { findAndUpdateTabCode, setSelectedItem, setSelectedNetwork } from './redux/slice'
 
 const NETWORK_KEY = "SELECTED_NETWORK"
 export type PlaygroundAppType = {
@@ -38,7 +38,7 @@ function PlaygroundApp({ pageData, iframe = false }: PlaygroundAppType) {
         return;
       }
       dispatch(setSelectedItem(pageData))
-      dispatch(setSnippet(pageData.snippets[pageData.index]))
+      dispatch(findAndUpdateTabCode({ code: pageData.snippets[pageData.index] }))
     } else if (router.asPath !== '/' && !iframe) {
       router.replace('/')
     }
