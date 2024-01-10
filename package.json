@@ -1,8 +1,6 @@
 {
   "name": "subsocial-playground",
-  "homepage": "https://tusharojha.github.io/playground",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
@@ -13,8 +11,8 @@
     "@polkadot/extension-dapp": "^0.44.6",
     "@polkadot/wasm-crypto": "^6.4.1",
     "@reduxjs/toolkit": "^1.8.5",
-    "@subsocial/api": "^0.7.13",
-    "@subsocial/utils": "^0.7.13",
+    "@subsocial/api": "^0.8.14",
+    "@subsocial/utils": "^0.8.14",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",

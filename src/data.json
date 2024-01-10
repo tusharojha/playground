@@ -11,7 +11,7 @@
         "https://docs.subsocial.network/docs/develop/how-to-guides/spaces/fetch-spaces#find-and-load-space-ids-by-owner"
       ],
       "snippets": [
-        "const spaceId = '1001'\nconst space = await api.findSpace({id: spaceId})\nreturn space",
+        "const spaceId = '1002'\nconst space = await api.findSpace({id: spaceId})\nreturn space",
         "const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here. \n\n// Fetching ids of all the spaces by owner.\nconst spaceIds = await api.blockchain.spaceIdsByOwner(ownerAccountId)\n\n// Fetching space data from all ids.\nconst spaces = await api.findSpaces({ids: spaceIds})\nreturn spaces"
       ]
     },

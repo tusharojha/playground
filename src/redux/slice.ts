@@ -30,7 +30,7 @@ interface CounterState {
 
 // Define the initial state using that type
 const initialState: CounterState = {
-  selectedNetwork: 'testnet',
+  selectedNetwork: 'xsocial',
   snippet: '',
   tabs: [],
   selectedTab: -1,

@@ -4,14 +4,16 @@ export type envType = 'testnet' | 'mainnet' | 'localnet' | string
 // This connects with SoonSocialX testnet.
 export const testnet = {
   substrateNodeUrl: 'wss://rco-para.subsocial.network',
-  ipfsNodeUrl: 'https://gw.crustfiles.app'
+  ipfsNodeUrl: 'https://ipfs.subsocial.network',
+  ipfsAdminNodeUrl: 'https://gw.crustfiles.app'
 }
 
 // Testnet configuration for the playground.
 // This connects with xSocial testnet.
 export const xsocial = {
   substrateNodeUrl: 'wss://xsocial.subsocial.network',
-  ipfsNodeUrl: 'https://gw.crustfiles.app'
+  ipfsNodeUrl: 'https://ipfs.subsocial.network',
+  ipfsAdminNodeUrl: 'https://gw.crustfiles.app',
 }
 
 // Mainnet configuration for the playground.
@@ -20,10 +22,6 @@ export const xsocial = {
 export const mainnet = {
   substrateNodeUrl: 'wss://para.f3joule.space',
   ipfsNodeUrl: 'https://ipfs.subsocial.network',
-  useServer: {
-    httpRequestMethod: 'get'
-  }
-
 }
 // Localnet configuration for the playground.
 // This allows you to connect to a local node.
