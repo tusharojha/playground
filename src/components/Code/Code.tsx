@@ -69,14 +69,6 @@ const CodeWindow = () => {
       })
     }
 
-    const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here.
-
-    // Fetching ids of all the spaces by owner.
-    const spaceIds = await selectedNetworkApi.blockchain.spaceIdsByOwner(
-      ownerAccountId
-    )
-    console.log(spaceIds)
-
     const res = await runPlayground(
       code,
       selectedNetworkApi,
