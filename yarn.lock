@@ -1196,7 +1196,7 @@
     "@polkadot/api" latest
     lodash.camelcase "^4.3.0"
 
-"@subsocial/utils@^0.8.14":
+"@subsocial/utils@^0.8.14", "@subsocial/utils@latest":
   version "0.8.14"
   resolved "https://registry.yarnpkg.com/@subsocial/utils/-/utils-0.8.14.tgz#40a1e29404dced28236d412f941a5a26821dcc9e"
   integrity sha512-yblvEQ2v5aqGr+aK/kMMqYFsnLqXq3fBDAM55mpfPoBNrCsmXH1AAEN2LGeYRnBV0lfO6FwZEpW9CfBES1AujA==
@@ -1218,28 +1218,6 @@
     remark-html "^13.0.1"
     strip-markdown "^4.0.0"
     tweetnacl "^1.0.3"
-
-"@subsocial/utils@latest":
-  version "0.7.13"
-  resolved "https://registry.yarnpkg.com/@subsocial/utils/-/utils-0.7.13.tgz#546abef2c4fa5e1f3d8e3de3ee69fb107f977309"
-  integrity sha512-HNHV+ZG/1yHgi4JcOLAWW0p4oaa6JCrv5///DzUuJbhpLjR7k6gKnF+ReXqEp9hFJggH4WCWPtNUCODD1FxlSA==
-  dependencies:
-    "@polkadot/util-crypto" latest
-    "@sindresorhus/slugify" "^1.1.0"
-    autolinker "^4.0.0"
-    bignumber.js "^9.0.1"
-    bn.js "^5.1.1"
-    chalk "^3.0.0"
-    dayjs "^1.10.7"
-    lodash.isempty "^4.4.0"
-    lodash.memoize "^4.1.2"
-    lodash.truncate "^4.4.2"
-    loglevel "^1.7.0"
-    loglevel-plugin-prefix "^0.8.4"
-    remark "^13.0.0"
-    remark-gfm "^1.0.0"
-    remark-html "^13.0.1"
-    strip-markdown "^4.0.0"
 
 "@substrate/connect-extension-protocol@^1.0.1":
   version "1.0.1"

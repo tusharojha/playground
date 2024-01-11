@@ -1,13 +1,16 @@
-import { PlayArrow } from "@mui/icons-material"
-import { Box, Button, CircularProgress } from "@mui/material"
-import runPlayground from "../../playground"
-import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { selectLoading, setTabLoading, updateTabResult } from "../../redux/slice"
+import { PlayArrow } from '@mui/icons-material'
+import { Button, CircularProgress } from '@mui/material'
+import runPlayground from '../../playground'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import {
+  selectLoading,
+  setTabLoading,
+  updateTabResult,
+} from '../../redux/slice'
 import dynamic from 'next/dynamic'
-import useNetworkManager from "../../networkManager"
-import { testAuthKeyForCrust } from "../../constants"
-import { CodeTabs } from "./CodeTabs"
-
+import useNetworkManager from '../../networkManager'
+import { testAuthKeyForCrust } from '../../constants'
+import { CodeTabs } from './CodeTabs'
 
 const CodeEditor = dynamic(import('./Editor'), { ssr: false })
 
@@ -22,11 +25,22 @@ const RunButton = ({ runCode }: RunCodeProps) => {
 
   const onBtnClick = async () => runCode(snippet)
 
-  return <Button disabled={loading} onClick={onBtnClick} sx={{ paddingLeft: 1, color: '#fff' }} variant="contained" color="primary">
-    {loading ? <CircularProgress size={20} sx={{ marginRight: 1 }} /> : <PlayArrow />}Run
-  </Button>
+  return (
+    <Button
+      disabled={loading}
+      onClick={onBtnClick}
+      sx={{ paddingLeft: 1, color: '#fff' }}
+      variant='contained'
+      color='primary'>
+      {loading ? (
+        <CircularProgress size={20} sx={{ marginRight: 1 }} />
+      ) : (
+        <PlayArrow />
+      )}
+      Run
+    </Button>
+  )
 }
-
 
 const CodeWindow = () => {
   const dispatch = useAppDispatch()
@@ -36,38 +50,59 @@ const CodeWindow = () => {
 
   const logToResponseWindow = (log: any) => {
     const status = log.status ?? ''
-    const progressStatus = log.id != null || status.includes("Finalised")
+    const progressStatus = log.id != null || status.includes('Finalised')
     dispatch(setTabLoading({ index: selectedTab, loading: !progressStatus }))
     dispatch(updateTabResult({ index: selectedTab, data: log }))
   }
 
   const runCode = async (code: string) => {
-    if (!isApiReady || api == undefined) return;
+    if (!isApiReady || api == undefined) return
 
     const selectedNetworkApi = api.get(selectedNetwork)
 
-    if (selectedNetworkApi == undefined) return;
-
+    if (selectedNetworkApi == undefined) return
 
     dispatch(setTabLoading({ index: selectedTab, loading: true }))
     if (selectedNetwork === 'testnet' || selectedNetwork === 'xsocial') {
       selectedNetworkApi.ipfs.setWriteHeaders({
-        authorization: 'Basic ' + testAuthKeyForCrust
+        authorization: 'Basic ' + testAuthKeyForCrust,
       })
     }
 
-    const res = await runPlayground(code, selectedNetworkApi, logToResponseWindow)
+    const ownerAccountId = '5HYYeCa1Hae5YYGJ2pHskHLVrA7V5WjaSuSbntidhhD9qqgs' // Put any public key here.
+
+    // Fetching ids of all the spaces by owner.
+    const spaceIds = await selectedNetworkApi.blockchain.spaceIdsByOwner(
+      ownerAccountId
+    )
+    console.log(spaceIds)
+
+    const res = await runPlayground(
+      code,
+      selectedNetworkApi,
+      logToResponseWindow
+    )
     dispatch(updateTabResult({ index: selectedTab, data: res }))
     dispatch(setTabLoading({ index: selectedTab, loading: false }))
   }
 
-  return <div className='displayArea'>
-    <div style={{ display: 'flex', flex: '0 1', flexDirection: 'row', alignItems: 'center', marginBottom: '8.25px', minHeight: '36px' }}>
-      <CodeTabs />
-      <RunButton runCode={runCode} />
+  return (
+    <div className='displayArea'>
+      <div
+        style={{
+          display: 'flex',
+          flex: '0 1',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: '8.25px',
+          minHeight: '36px',
+        }}>
+        <CodeTabs />
+        <RunButton runCode={runCode} />
+      </div>
+      <CodeEditor runCode={runCode} />
     </div>
-    <CodeEditor runCode={runCode} />
-  </div>
+  )
 }
 
 export default CodeWindow
