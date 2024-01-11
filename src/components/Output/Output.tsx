@@ -1,25 +1,49 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Typography } from '@mui/material'
 
-import { useAppSelector } from "../../redux/hooks"
+import { useAppSelector } from '../../redux/hooks'
 import dynamic from 'next/dynamic'
-import { selectResponse } from "../../redux/slice"
+import { selectResponse } from '../../redux/slice'
 
 const ReactJson = dynamic(import('react-json-view'), { ssr: false })
 
 const OutputWindow = () => {
-
   const response = useAppSelector((state) => selectResponse(state))
 
-  return <div className='output'>
-    <div style={{ display: 'flex', flex: '0 1', flexDirection: 'row', alignItems: 'center', marginBottom: '8.25px', minHeight: '34px' }}>
-      <Typography sx={{ mt: 0 }} variant="caption" display="block">
-        Result
-      </Typography>
+  return (
+    <div className='output'>
+      <div
+        style={{
+          display: 'flex',
+          flex: '0 1',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: '8.25px',
+          minHeight: '34px',
+        }}>
+        <Typography sx={{ mt: 0 }} variant='caption' display='block'>
+          Result
+        </Typography>
+      </div>
+      <Box className='output-box'>
+        <ReactJson
+          defaultValue={{}}
+          collapsed={false}
+          displayDataTypes={false}
+          iconStyle='triangle'
+          style={{
+            height: '100%',
+            width: '100%',
+            backgroundColor: '#1E1E1E',
+            fontSize: '14px',
+            fontFamily:
+              "source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace",
+          }}
+          theme='tomorrow'
+          src={response ? JSON.parse(JSON.stringify(response)) : undefined}
+        />
+      </Box>
     </div>
-    <Box className='output-box'>
-      <ReactJson defaultValue={{}} collapsed={false} displayDataTypes={false} iconStyle="triangle" style={{ height: '100%', width: '100%', backgroundColor: '#1E1E1E', fontSize: '14px', fontFamily: 'Monaco' }} theme="tomorrow" src={response ? JSON.parse(JSON.stringify(response)) : undefined} />
-    </Box>
-  </div>
+  )
 }
 
 export default OutputWindow
